@@ -1,0 +1,171 @@
+[
+  {
+    "srr_id": "SRR25010607",
+    "download_timestamp": "2025-11-17T07:22:16.756607",
+    "summary": {
+      "uid": "28196483",
+      "expxml": "  <Summary><Title>GSM7507542: LDS ascending 4; Homo sapiens; RNA-Seq</Title><Platform instrument_model=\"Illumina NovaSeq 6000\">ILLUMINA</Platform><Statistics total_runs=\"4\" total_spots=\"463423320\" total_bases=\"58854761640\" total_size=\"18412425881\" load_done=\"true\" cluster_name=\"public\"/></Summary><Submitter acc=\"SRA1661424\" center_name=\"Cardiothoracic Surgery, Stanford University\" contact_name=\"GEO Group\" lab_name=\"\"/><Experiment acc=\"SRX20765754\" ver=\"2\" status=\"public\" name=\"GSM7507542: LDS ascending 4; Homo sapiens; RNA-Seq\"/><Study acc=\"SRP445600\" name=\"Chemokine Ligand 2 Expressing Fibroblast Recruitment of Macrophages Enhanced in Loeys-Dietz Syndrome Aortic Root Aneurysm Formation [human]\"/><Organism taxid=\"9606\" ScientificName=\"Homo sapiens\"/><Sample acc=\"SRS18053971\" name=\"\"/><Instrument ILLUMINA=\"Illumina NovaSeq 6000\"/><Library_descriptor><LIBRARY_NAME>GSM7507542</LIBRARY_NAME><LIBRARY_STRATEGY>RNA-Seq</LIBRARY_STRATEGY><LIBRARY_SOURCE>TRANSCRIPTOMIC SINGLE CELL</LIBRARY_SOURCE><LIBRARY_SELECTION>cDNA</LIBRARY_SELECTION><LIBRARY_LAYOUT><PAIRED/></LIBRARY_LAYOUT><LIBRARY_CONSTRUCTION_PROTOCOL>Fresh aortic root tissue was collected from the operating room within 30 minutes of excision and kept in cold HBSS (Sigma). Tissue was dissected to include all vascular layers and divided into four 50 mg pieces. Samples were then placed in digestion solution containing Liberase TM (10.4 U/mL working concentration, Roche) and elastase (8 U/mL, Sigma) and finely minced. Following 60 minutes of digestion at 37\u00b0C, digestates were filtered through a 70 \u03bcmol/L strainer, centrifuged and resuspended with fresh cold HBSS. Samples were sorted with FACS using Calcein green (ThermoFisher) for live/dead discrimination. Samples were immediately processed using a 10x Genomics microfluidics chip to generate barcoded Gel Bead-In Emulsions (GEMs) according to manufacturer protocols. Individual sample libraries were generated from single cell GEM captures using the Chromium 3' version 3 library prep protocol (10X Genomics). QC was performed following cDNA generation and final library construction.</LIBRARY_CONSTRUCTION_PROTOCOL></Library_descriptor><Bioproject>PRJNA986892</Bioproject><Biosample>SAMN35881900</Biosample>  ",
+      "runs": "                                <Run acc=\"SRR25010607\" total_spots=\"116193993\" total_bases=\"14756637111\" load_done=\"true\" is_public=\"true\" cluster_name=\"public\" static_data_available=\"true\"/><Run acc=\"SRR25010613\" total_spots=\"115330176\" total_bases=\"14646932352\" load_done=\"true\" is_public=\"true\" cluster_name=\"public\" static_data_available=\"true\"/><Run acc=\"SRR25010614\" total_spots=\"115124830\" total_bases=\"14620853410\" load_done=\"true\" is_public=\"true\" cluster_name=\"public\" static_data_available=\"true\"/><Run acc=\"SRR25010615\" total_spots=\"116774321\" total_bases=\"14830338767\" load_done=\"true\" is_public=\"true\" cluster_name=\"public\" static_data_available=\"true\"/>                                ",
+      "extlinks": "",
+      "createdate": "2025/04/23",
+      "updatedate": "2023/06/24"
+    },
+    "full": {},
+    "uid": "28196483"
+  },
+  {
+    "srr_id": "SRR22709392",
+    "download_timestamp": "2025-11-17T07:22:16.757019",
+    "summary": {},
+    "full": {
+      "run": {
+        "accession": "SRR22709392",
+        "total_spots": "104608",
+        "total_bases": "29661904",
+        "size": "12928628",
+        "published": "2022-12-14 22:18:17",
+        "cluster_name": "public",
+        "attributes": {}
+      },
+      "experiment": {
+        "accession": "SRX18671412",
+        "title": "GSM6822075: EDFig10_LowDose_Mouse3_SkMuscle; Mus musculus; OTHER",
+        "design_description": "",
+        "library_name": "GSM6822075",
+        "library_strategy": "OTHER",
+        "library_source": "GENOMIC",
+        "library_selection": "other",
+        "library_layout": "SINGLE",
+        "platform": {
+          "type": "ILLUMINA",
+          "instrument_model": "Illumina MiSeq"
+        },
+        "attributes": {}
+      },
+      "sample": {
+        "accession": "SRS16114918",
+        "title": "EDFig10_LowDose_Mouse3_SkMuscle",
+        "taxon_id": "10090",
+        "scientific_name": "Mus musculus",
+        "common_name": "",
+        "description": "",
+        "attributes": {
+          "source_name": "Heart (Left Ventricle Apex)",
+          "cell type": "Heart (Left Ventricle Apex)",
+          "genotype": "Myh6 R403Q Heterozygous HCM Model Mouse",
+          "treatment": "LowDoseSaCas9Nuclease"
+        }
+      },
+      "study": {
+        "accession": "SRP413102",
+        "title": "Efficient in vivo genome editing prevents hypertrophic cardiomyopathy in mice [genomicDNA]",
+        "abstract": "We assessed genome editing strategies to treat cardiomyopathy in mice including one or two doses of ABE8e, or one low, medium, or high dose of SaCas9 nuclease We conducted RNA analysis and genomic DNA analysis at the target region and transcriptome-wide analysis to assess cellular phenotypes Overall design: After genomic DNA extraction from mouse tissues, the a 300 bp region around the target editing site (Myh6 R403Q ) was PCR-amplified and sequenced on an Illumina MiSeq",
+        "description": "",
+        "study_type": "",
+        "attributes": {
+          "parent_bioproject": "PRJNA911761"
+        }
+      },
+      "submission": {
+        "accession": "SRA1559517",
+        "submission_date": null,
+        "lab_name": "",
+        "center_name": "Seidman, Genetics, Harvard Medical School"
+      },
+      "organization": {
+        "type": "institute",
+        "name": "Seidman, Genetics, Harvard Medical School"
+      }
+    },
+    "uid": "25734661"
+  },
+  {
+    "srr_id": "SRR7478536",
+    "download_timestamp": "2025-11-17T07:22:18.149573",
+    "summary": {
+      "uid": "5903767",
+      "expxml": "  <Summary><Title>WXS of Turner syndrome patients: Sample AG_514795</Title><Platform instrument_model=\"Illumina HiSeq 2500\">ILLUMINA</Platform><Statistics total_runs=\"1\" total_spots=\"35533423\" total_bases=\"5330013450\" total_size=\"2554188418\" load_done=\"true\" cluster_name=\"dbgap\"/></Summary><Submitter acc=\"SRA734415\" center_name=\"OHSU-phs001531\" contact_name=\"Holly Corbitt\" lab_name=\"\"/><Experiment acc=\"SRX4348019\" ver=\"1\" status=\"public\" name=\"WXS of Turner syndrome patients: Sample AG_514795\"/><Study acc=\"SRP152521\" name=\"Genetic Variation Associated with Bicuspid Aortic Valve in Turner Syndrome\"/><Organism taxid=\"9606\" ScientificName=\"Homo sapiens\"/><Sample acc=\"SRS3507865\" name=\"\"><ControlledAccess study=\"phs001531\" consent=\"DS-TS-X-IRB-NPU-MDS\"/></Sample><Instrument ILLUMINA=\"Illumina HiSeq 2500\"/><Library_descriptor><LIBRARY_NAME>27-37526_99</LIBRARY_NAME><LIBRARY_STRATEGY>WXS</LIBRARY_STRATEGY><LIBRARY_SOURCE>GENOMIC</LIBRARY_SOURCE><LIBRARY_SELECTION>RANDOM</LIBRARY_SELECTION><LIBRARY_LAYOUT><PAIRED/></LIBRARY_LAYOUT></Library_descriptor><Bioproject>PRJNA432473</Bioproject><Biosample>SAMN08471940</Biosample>  ",
+      "runs": "                                <Run acc=\"SRR7478536\" total_spots=\"35533423\" total_bases=\"5330013450\" load_done=\"true\" is_public=\"true\" cluster_name=\"dbgap\"/>                                ",
+      "extlinks": "",
+      "createdate": "2018/10/10",
+      "updatedate": "2018/07/06"
+    },
+    "full": {
+      "run": {
+        "accession": "SRR7478536",
+        "total_spots": "35533423",
+        "total_bases": "5330013450",
+        "size": "2554188418",
+        "published": "2018-10-10 16:08:24",
+        "cluster_name": "dbgap",
+        "attributes": {}
+      },
+      "experiment": {
+        "accession": "SRX4348019",
+        "title": "WXS of Turner syndrome patients: Sample AG_514795",
+        "design_description": "\"Genomic DNA purified from whole blood. NimbleGen version 2 exome capture kit. Whole exome squencing on the Illumina HiSeq 2500. Beast practices for data cleaning and alignment using picard tools, GATK, and BWA.\"",
+        "library_name": "27-37526_99",
+        "library_strategy": "WXS",
+        "library_source": "GENOMIC",
+        "library_selection": "RANDOM",
+        "library_layout": "PAIRED",
+        "platform": {
+          "type": "ILLUMINA",
+          "instrument_model": "Illumina HiSeq 2500"
+        },
+        "attributes": {
+          "alignment_software": "BWA 0.7.10-r789"
+        }
+      },
+      "sample": {
+        "accession": "SRS3507865",
+        "title": "DNA sample from SALIVA of a human female participant in the dbGaP study \"Genetic Variation Associated with Bicuspid Aortic Valve in Turner Syndrome\"",
+        "taxon_id": "9606",
+        "scientific_name": "Homo sapiens",
+        "common_name": "",
+        "description": "",
+        "attributes": {
+          "gap_accession": "phs001531",
+          "submitter handle": "NHLBI_TurnerSyndrome_BAV",
+          "biospecimen repository": "NHLBI_TurnerSyndrome_BAV",
+          "study name": "Genetic Variation Associated with Bicuspid Aortic Valve in Turner Syndrome",
+          "study design": "Case-Control",
+          "biospecimen repository sample id": "AG_514795",
+          "submitted sample id": "AG_514795",
+          "submitted subject id": "124215",
+          "gap_sample_id": "2906514",
+          "gap_subject_id": "2441226",
+          "sex": "female",
+          "study disease": "Turner Syndrome",
+          "body site": "SALIVA",
+          "analyte type": "DNA",
+          "subject is affected": "Yes",
+          "molecular data type": "SNP/CNV Genotypes (NGS)",
+          "gap_consent_code": "1",
+          "gap_consent_short_name": "DS-TS-X-IRB-NPU-MDS"
+        }
+      },
+      "study": {
+        "accession": "SRP152521",
+        "title": "Genetic Variation Associated with Bicuspid Aortic Valve in Turner Syndrome",
+        "abstract": "Turner syndrome is a disorder affecting only girls and women, which is caused by a complete or partial loss of the second sex chromosome. Girls and women with Turner syndrome have a variety of phenotypes. Of interest to this study is aortopathy, including bicuspid aortic valve (BAV) and thoracic aortic dilation (TAD) in which we know that 25 - 50% of girls with Turner syndrome are born with.  The aorta is the main artery that conducts the blood out of the heart. The aortic valve guards the entrance to the aorta. When the aortic valve has two leaflets instead of the usual three it is called a BAV. BAV is more common than all other congenital heart defects combined. BAV commonly causes obstructions to blood flow out of the heart or become leaky over time. BAV often occurs in combination with TAD. In Turner syndrome, TADs are increased 50-100 fold compared to the general population. Currently, there are no effective approaches or pre-surgical treatments for... (for more see dbGaP study page.)",
+        "description": "",
+        "study_type": "",
+        "attributes": {
+          "parent_bioproject": "PRJNA432472"
+        }
+      },
+      "submission": {
+        "accession": "SRA734415",
+        "submission_date": null,
+        "lab_name": "",
+        "center_name": "OHSU-phs001531"
+      },
+      "organization": {
+        "type": "center",
+        "name": "OHSU-phs001531"
+      }
+    },
+    "uid": "5903767"
+  }
+]

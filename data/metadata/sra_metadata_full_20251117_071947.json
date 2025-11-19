@@ -1,0 +1,409 @@
+[
+  {
+    "srr_id": "SRR34332807",
+    "download_timestamp": "2025-11-17T07:19:43.736039",
+    "summary": {},
+    "full": {
+      "run": {
+        "accession": "SRR34332807",
+        "total_spots": "101844",
+        "total_bases": "51125688",
+        "size": "37097890",
+        "published": "2025-07-02 05:33:32",
+        "cluster_name": "public",
+        "attributes": {}
+      },
+      "experiment": {
+        "accession": "SRX29498305",
+        "title": "NGS-CNT2",
+        "design_description": "2x250",
+        "library_name": "FL09546_6",
+        "library_strategy": "AMPLICON",
+        "library_source": "GENOMIC",
+        "library_selection": "PCR",
+        "library_layout": "PAIRED",
+        "platform": {
+          "type": "ILLUMINA",
+          "instrument_model": "Illumina MiSeq"
+        },
+        "attributes": {}
+      },
+      "sample": {
+        "accession": "SRS25638280",
+        "title": "",
+        "taxon_id": "9606",
+        "scientific_name": "Homo sapiens",
+        "common_name": "",
+        "description": "",
+        "attributes": {
+          "isolate": "CNT_2",
+          "age": "N/A",
+          "biomaterial_provider": "N/A",
+          "collection_date": "2023-10-31",
+          "geo_loc_name": "Germany:Berlin",
+          "sex": "female",
+          "tissue": "Stable cell line",
+          "cell_line": "Target-Array HEK293T",
+          "cell_type": "Human Embryonal Kidney",
+          "sample_type": "stable cell line",
+          "treatment": "Untreated",
+          "BioSampleModel": "Human"
+        }
+      },
+      "study": {
+        "accession": "SRP596918",
+        "title": "Prime Editing Corrects RBM20-Mediated Dilated Cardiomyopathy in Human Cardiomyocytes",
+        "abstract": "The goal of the study is to establish Prime Editing (PE) in differentiated, non-dividing human cardiomyocytes to precisely repair patient-derived DCM mutations to wildtype. We focus on three pathogenic DCM-causing mutations within the human LMNA and RBM20 genes. Our results support further pre-clinical development of PE-based therapies, particularly for RBM20-P633L-associated DCM",
+        "description": "",
+        "study_type": "",
+        "attributes": {}
+      },
+      "submission": {
+        "accession": "SRA2161309",
+        "submission_date": null,
+        "lab_name": "AG kuehn",
+        "center_name": "Max Delbrueck Center Berlin"
+      },
+      "organization": {
+        "type": "institute",
+        "name": "Max Delbrueck Center Berlin"
+      }
+    },
+    "uid": "39509930"
+  },
+  {
+    "srr_id": "SRR19964401",
+    "download_timestamp": "2025-11-17T07:19:43.736776",
+    "summary": {
+      "uid": "22682792",
+      "expxml": "  <Summary><Title>Targeted-Capture of homo sapiens: adult DCM patient No.45</Title><Platform instrument_model=\"Illumina HiSeq 2000\">ILLUMINA</Platform><Statistics total_runs=\"1\" total_spots=\"8153936\" total_bases=\"1467708480\" total_size=\"1031739877\" load_done=\"true\" cluster_name=\"public\"/></Summary><Submitter acc=\"SRA1448157\" center_name=\"Chinese PLA General Hospital\" contact_name=\"Mingxiang Zhu\" lab_name=\"Medical Big Data Research Center\"/><Experiment acc=\"SRX16006960\" ver=\"1\" status=\"public\" name=\"Targeted-Capture of homo sapiens: adult DCM patient No.45\"/><Study acc=\"SRP384705\" name=\"Exome sequencing of dilated cardiomyopathy\"/><Organism taxid=\"9606\" ScientificName=\"Homo sapiens\"/><Sample acc=\"SRS13692124\" name=\"\"/><Instrument ILLUMINA=\"Illumina HiSeq 2000\"/><Library_descriptor><LIBRARY_NAME>R77</LIBRARY_NAME><LIBRARY_STRATEGY>Targeted-Capture</LIBRARY_STRATEGY><LIBRARY_SOURCE>GENOMIC</LIBRARY_SOURCE><LIBRARY_SELECTION>PCR</LIBRARY_SELECTION><LIBRARY_LAYOUT><PAIRED/></LIBRARY_LAYOUT></Library_descriptor><Bioproject>PRJNA855287</Bioproject><Biosample>SAMN29487557</Biosample>  ",
+      "runs": "                                <Run acc=\"SRR19964401\" total_spots=\"8153936\" total_bases=\"1467708480\" load_done=\"true\" is_public=\"true\" cluster_name=\"public\" static_data_available=\"true\"/>                                ",
+      "extlinks": "",
+      "createdate": "2022/07/03",
+      "updatedate": "2022/07/03"
+    },
+    "full": {
+      "run": {
+        "accession": "SRR19964401",
+        "total_spots": "8153936",
+        "total_bases": "1467708480",
+        "size": "1031739877",
+        "published": "2022-07-03 23:34:21",
+        "cluster_name": "public",
+        "attributes": {}
+      },
+      "experiment": {
+        "accession": "SRX16006960",
+        "title": "Targeted-Capture of homo sapiens: adult DCM patient No.45",
+        "design_description": "The peripheral whole blood samples were obtained from the participants and then exome sequencing was performed using Nimblegen targeted gene panels.",
+        "library_name": "R77",
+        "library_strategy": "Targeted-Capture",
+        "library_source": "GENOMIC",
+        "library_selection": "PCR",
+        "library_layout": "PAIRED",
+        "platform": {
+          "type": "ILLUMINA",
+          "instrument_model": "Illumina HiSeq 2000"
+        },
+        "attributes": {}
+      },
+      "sample": {
+        "accession": "SRS13692124",
+        "title": "DCM45",
+        "taxon_id": "9606",
+        "scientific_name": "Homo sapiens",
+        "common_name": "",
+        "description": "",
+        "attributes": {
+          "isolate": "The dilated cardiomyopathy patient No. 45",
+          "age": "38",
+          "biomaterial_provider": "PLA General Hospital",
+          "sex": "male",
+          "tissue": "Blood",
+          "BioSampleModel": "Human"
+        }
+      },
+      "study": {
+        "accession": "SRP384705",
+        "title": "Exome sequencing of dilated cardiomyopathy",
+        "abstract": "Dilated cardiomyopathy is a severe disease with a dismal prognosis that can lead to heart failure requiring a transplant or patient death. However, the genetic mechanisms underlying the disease are still unclear. To explore the pathogenesis of dilated cardiomyopathy, we recruited 198 patients (142 patients with DCM and 56 controls) and exome sequencing was performed using the peripheral whole blood samples obtained from the participants.In total, 2 samples (2 patients in DCM group) were excluded from further analysis due to poor quality.",
+        "description": "",
+        "study_type": "",
+        "attributes": {}
+      },
+      "submission": {
+        "accession": "SRA1448157",
+        "submission_date": null,
+        "lab_name": "Medical Big Data Research Center",
+        "center_name": "Chinese PLA General Hospital"
+      },
+      "organization": {
+        "type": "institute",
+        "name": "Chinese PLA General Hospital"
+      }
+    },
+    "uid": "22682792"
+  },
+  {
+    "srr_id": "ERR11472715",
+    "download_timestamp": "2025-11-17T07:19:43.736505",
+    "summary": {},
+    "full": {
+      "run": {
+        "accession": "ERR11472715",
+        "total_spots": "28575566",
+        "total_bases": "8572669800",
+        "size": "3573749350",
+        "published": "2025-01-24 21:37:10",
+        "cluster_name": "public",
+        "attributes": {
+          "ENA-FIRST-PUBLIC": "2025-01-24",
+          "ENA-LAST-UPDATE": "2025-01-24"
+        }
+      },
+      "experiment": {
+        "accession": "ERX10878889",
+        "title": "FHL133",
+        "design_description": "",
+        "library_name": "",
+        "library_strategy": "OTHER",
+        "library_source": "GENOMIC",
+        "library_selection": "other",
+        "library_layout": "PAIRED",
+        "platform": {
+          "type": "ILLUMINA",
+          "instrument_model": "Illumina NovaSeq 6000"
+        },
+        "attributes": {}
+      },
+      "sample": {
+        "accession": "ERS15539914",
+        "title": "FHL133",
+        "taxon_id": "9606",
+        "scientific_name": "Homo sapiens",
+        "common_name": "",
+        "description": "Whole Exome Sequencing (WES) approach for detection of gene variations in Familial Hypercholesterolemia (FH) patients",
+        "attributes": {
+          "ENA first public": "2025-01-24",
+          "External Id": "SAMEA113543493",
+          "INSDC center name": "Dr Swarup Shah, P D Hinduja Hospital and Medical Research Centre, TH Kataria Marg, Mahim, Mumbai 400016",
+          "INSDC last update": "2023-05-24T07:48:00Z",
+          "INSDC status": "public",
+          "Submitter Id": "SAMIN0003259-FHL133",
+          "broker name": "IBDC",
+          "collection date": "2015",
+          "common name": "human",
+          "environment (biome)": "Clinical Samples",
+          "environment (feature)": "Clinical Samples",
+          "environment (material)": "Clinical Samples",
+          "geographic location (country and/or sea)": "India",
+          "geographic location (latitude)": "19.07609",
+          "geographic location (longitude)": "72.877426",
+          "human-associated environmental package": "human-associated",
+          "investigation type": "eukaryote",
+          "project name": "Exome Sequencing of Indian Familial Hypercholesterolemia patients",
+          "sample name": "SAMIN0003259-FHL133",
+          "scientific_name": "Homo sapiens",
+          "sequencing method": "Next-generation Sequencing"
+        }
+      },
+      "study": {
+        "accession": "ERP146886",
+        "title": "Exome sequencing in Indian patients with definite Familial Hypercholesterolemia",
+        "abstract": "Next Generation Sequencing approach to determine the mutation spectrum in Indian patients with Familial Hypercholesterolemia",
+        "description": "Next Generation Sequencing approach to determine the mutation spectrum in Indian patients with Familial Hypercholesterolemia",
+        "study_type": "",
+        "attributes": {
+          "ENA-FIRST-PUBLIC": "2025-01-24",
+          "ENA-LAST-UPDATE": "2025-01-24"
+        }
+      },
+      "submission": {
+        "accession": "ERA23439649",
+        "submission_date": null,
+        "lab_name": "European Nucleotide Archive",
+        "center_name": "Indian Biological Data Centre"
+      },
+      "organization": {
+        "type": "center",
+        "name": "Indian Biological Data Centre"
+      }
+    },
+    "uid": "37038233"
+  },
+  {
+    "srr_id": "SRR23887172",
+    "download_timestamp": "2025-11-17T07:19:45.767562",
+    "summary": {},
+    "full": {
+      "run": {
+        "accession": "SRR23887172",
+        "total_spots": "24217367",
+        "total_bases": "3681039784",
+        "size": "1743649634",
+        "published": "2023-10-24 04:46:01",
+        "cluster_name": "dbgap",
+        "attributes": {
+          "assembly": "GRCh37"
+        }
+      },
+      "experiment": {
+        "accession": "SRX19699643",
+        "title": "DCM Precision Medicine Study Exomes: Sample SAM1144",
+        "design_description": "Base calls were generated in real-time on the instrument (RTA 2.7.6), and demultiplexed, unaligned BAM files were produced by Picard v1.111 ExtractIlluminaBarcodes and IlluminaBasecallsToSam.   Reads were aligned to the hs37d5(GRCh37) human reference using BWA v0.7.10.  Read-pairs not mapping within \u00b1 2 standard deviations of the average library size (~150 \u00b1 15 bp for exomes) were removed.  Aligned reads were further processed with Picard MarkDuplicates for duplicate removal, GATK v3. 2-2 IndelRealigner for realignment around short insertion-deletions, and GATK v3.2-2BaseRecalibrator for base quality score recalibration.",
+        "library_name": "SAM1144",
+        "library_strategy": "WXS",
+        "library_source": "GENOMIC",
+        "library_selection": "PCR",
+        "library_layout": "PAIRED",
+        "platform": {
+          "type": "ILLUMINA",
+          "instrument_model": "Illumina HiSeq 4000"
+        },
+        "attributes": {
+          "alignment_software": "Burrows-Wheeler Aligner v0.7.10."
+        }
+      },
+      "sample": {
+        "accession": "SRS17068253",
+        "title": "Non-tumor DNA sample from Blood of a human male participant in the dbGaP study \"Precision Medicine for Dilated Cardiomyopathy in European and African Ancestry\"",
+        "taxon_id": "9606",
+        "scientific_name": "Homo sapiens",
+        "common_name": "",
+        "description": "",
+        "attributes": {
+          "gap_accession": "phs002641",
+          "submitter handle": "NHLBI_DCMPrecisionMedicine",
+          "biospecimen repository": "NHLBI_DCMPrecisionMedicine",
+          "study name": "Precision Medicine for Dilated Cardiomyopathy in European and African Ancestry",
+          "study design": "Clinical Trial",
+          "biospecimen repository sample id": "SAM1144",
+          "submitted sample id": "SAM1144",
+          "submitted subject id": "942",
+          "gap_sample_id": "5009943",
+          "gap_subject_id": "4013932",
+          "sex": "male",
+          "study disease": "Idiopathic Dilated Cardiomyopathy",
+          "body site": "Blood",
+          "analyte type": "DNA",
+          "is tumor": "No",
+          "subject is affected": "Yes",
+          "gap_consent_code": "1",
+          "gap_consent_short_name": "DS-DC"
+        }
+      },
+      "study": {
+        "accession": "SRP427861",
+        "title": "Precision medicine for dilated cardiomyopathy in European and African ancestry",
+        "abstract": "The DCM Precision Medicine Study is a multi-site consortium-based cross-sectional study of families with an embedded open-label randomized controlled trial. The aims of the study are to test the hypothesis that dilated cardiomyopathy (DCM) has a substantial genetic basis and to evaluate the effectiveness of a family communication intervention in improving the uptake of preventive screening and surveillance in at-risk first-degree relatives. The Study goal was to recruit 1,300 individuals (600 non-Hispanic African ancestry, 600 non-Hispanic European ancestry, and 100 Hispanic; 50% female) meeting rigorous diagnostic criteria for idiopathic DCM (probands) and 2,600 of their relatives. The probands were inpatients or outpatients identified by heart failure and cardiac transplant... (for more see dbGaP study page.)",
+        "description": "",
+        "study_type": "",
+        "attributes": {
+          "parent_bioproject": "PRJNA771722"
+        }
+      },
+      "submission": {
+        "accession": "SRA1606255",
+        "submission_date": null,
+        "lab_name": "",
+        "center_name": "OSUMC-phs002641"
+      },
+      "organization": {
+        "type": "center",
+        "name": "OSUMC-phs002641"
+      }
+    }
+  },
+  {
+    "srr_id": "ERR946918",
+    "download_timestamp": "2025-11-17T07:19:45.951623",
+    "summary": {
+      "uid": "1578774",
+      "expxml": "  <Summary><Title>AB SOLiD 4 System paired end sequencing</Title><Platform instrument_model=\"AB SOLiD 4 System\">ABI_SOLID</Platform><Statistics total_runs=\"1\" total_spots=\"696888\" total_bases=\"40274425\" total_size=\"18527040\" load_done=\"true\" cluster_name=\"public\"/></Summary><Submitter acc=\"ERA452475\" center_name=\"GENCARDIO\" contact_name=\"\" lab_name=\"\"/><Experiment acc=\"ERX1025903\" ver=\"2\" status=\"public\" name=\"AB SOLiD 4 System paired end sequencing\"/><Study acc=\"ERP010874\" name=\"Genetic analysis of arrhythmogenic diseases in the era of NGS: the complexity of clinical decision-making in Brugada Syndrome.\"/><Organism taxid=\"9606\" ScientificName=\"Homo sapiens\"/><Sample acc=\"ERS781710\" name=\"\"/><Instrument ABI_SOLID=\"AB SOLiD 4 System\"/><Library_descriptor><LIBRARY_NAME>unspecified</LIBRARY_NAME><LIBRARY_STRATEGY>AMPLICON</LIBRARY_STRATEGY><LIBRARY_SOURCE>GENOMIC</LIBRARY_SOURCE><LIBRARY_SELECTION>PCR</LIBRARY_SELECTION><LIBRARY_LAYOUT><PAIRED NOMINAL_LENGTH=\"150\"/></LIBRARY_LAYOUT></Library_descriptor><Bioproject>PRJEB9734</Bioproject><Biosample>SAMEA3470223</Biosample>  ",
+      "runs": "                                <Run acc=\"ERR946918\" total_spots=\"696888\" total_bases=\"40274425\" load_done=\"true\" is_public=\"true\" cluster_name=\"public\" static_data_available=\"true\"/>                                ",
+      "extlinks": "",
+      "createdate": "2015/07/31",
+      "updatedate": "2015/08/21"
+    },
+    "full": {
+      "run": {
+        "accession": "ERR946918",
+        "total_spots": "696888",
+        "total_bases": "40274425",
+        "size": "18527040",
+        "published": "2015-06-30 14:19:37",
+        "cluster_name": "public",
+        "attributes": {
+          "ENA-FIRST-PUBLIC": "2015-06-29",
+          "ENA-LAST-UPDATE": "2018-11-16"
+        }
+      },
+      "experiment": {
+        "accession": "ERX1025903",
+        "title": "AB SOLiD 4 System paired end sequencing",
+        "design_description": "",
+        "library_name": "unspecified",
+        "library_strategy": "AMPLICON",
+        "library_source": "GENOMIC",
+        "library_selection": "PCR",
+        "library_layout": "PAIRED",
+        "platform": {
+          "type": "ABI_SOLID",
+          "instrument_model": "AB SOLiD 4 System"
+        },
+        "attributes": {}
+      },
+      "sample": {
+        "accession": "ERS781710",
+        "title": "BRS_GENCARDIO_sample",
+        "taxon_id": "9606",
+        "scientific_name": "Homo sapiens",
+        "common_name": "",
+        "description": "",
+        "attributes": {
+          "ENA first public": "2015-06-29",
+          "ENA last update": "2016-10-21",
+          "External Id": "SAMEA3470223",
+          "INSDC center alias": "GENCARDIO",
+          "INSDC center name": "GENCARDIO",
+          "INSDC first public": "2015-06-29T17:02:02Z",
+          "INSDC last update": "2016-10-21T09:40:46Z",
+          "INSDC status": "public",
+          "Submitter Id": "8",
+          "collection date": "2013",
+          "common name": "human",
+          "environment (biome)": "city",
+          "environment (feature)": "city",
+          "environment (material)": "city",
+          "geographic location (country and/or sea)": "Spain",
+          "geographic location (latitude)": "41",
+          "geographic location (longitude)": "2",
+          "human associated environmental package": "human-associated",
+          "investigation type": "metagenome",
+          "project name": "BRS_GENCARDIO_ALLEGUE_2015",
+          "sample name": "8",
+          "sequencing method": "SOLID NGS"
+        }
+      },
+      "study": {
+        "accession": "ERP010874",
+        "title": "Genetic analysis of arrhythmogenic diseases in the era of NGS: the complexity of clinical decision-making in Brugada Syndrome.",
+        "abstract": "A cohort of 45 clinically diagnosed Brugada Syndrome patients classified as SCN5A-negative was analyzed using next generation sequencing. Twenty-eight genes were resequenced. A total of 85 clinically evaluated relatives were also genetically analyzed to ascertain familial segregation.  We identified genetic variants in novel candidate genes potentially associated to Brugada Syndrome. The identification of these genetic variants opens new perspectives on the implications of genetic background in the arrhythmogenic substrate for research purposes.",
+        "description": "A cohort of 45 clinically diagnosed Brugada Syndrome patients classified as SCN5A-negative was analyzed using next generation sequencing. Twenty-eight genes were resequenced. A total of 85 clinically evaluated relatives were also genetically analyzed to ascertain familial segregation.  We identified genetic variants in novel candidate genes potentially associated to Brugada Syndrome. The identification of these genetic variants opens new perspectives on the implications of genetic background in the arrhythmogenic substrate for research purposes.",
+        "study_type": "",
+        "attributes": {}
+      },
+      "submission": {
+        "accession": "ERA452475",
+        "submission_date": null,
+        "lab_name": "",
+        "center_name": "GENCARDIO"
+      },
+      "organization": {
+        "type": "center",
+        "name": "GENCARDIO"
+      }
+    },
+    "uid": "1578774"
+  }
+]

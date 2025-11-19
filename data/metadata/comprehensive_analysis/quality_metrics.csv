@@ -1,0 +1,2 @@
+total_columns,total_samples,mean_completeness,median_completeness,excellent_columns,good_columns,fair_columns,poor_columns,minimal_columns,high_cardinality_columns,medium_cardinality_columns,low_cardinality_columns
+300,2880,15.28321759259259,0.6944444444444444,29,4,0,35,232,14,59,227

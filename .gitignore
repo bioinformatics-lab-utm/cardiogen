@@ -1,0 +1,87 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Logs
+*.log
+*.log.*
+logs/
+
+# Data files (too large for git)
+data/fastq/
+data/sra/
+data/filtered/
+data/temp_batch_*/
+data/*.csv
+!data/.gitkeep
+
+# Keep QC structure but ignore large reports
+data/qc/*/*/
+!data/qc/.gitkeep
+
+# Keep results structure
+data/results/*.json
+data/results/*.csv
+data/results/*.txt
+!data/results/.gitkeep
+
+# Archive
+archive/
+
+# Temporary files
+fasterq.tmp.*/
+*.tmp
+*.temp
+
+# SRA directories (downloaded data)
+SRR*/
+ERR*/
+DRR*/
+
+# Large data files
+*.fastq
+*.fastq.gz
+*.fq
+*.fq.gz
+*.sra
+*.bam
+*.sam
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+notebook.ipynb
+
+# Downloaded files
+downloads/
+
+# Output
+output.log
+nohup.out
+test_run.log

@@ -1,0 +1,47 @@
+column,samples_with_data,completeness_%,unique_values,top_value,top_value_count
+sample_study_disease,963,33.4375,4,Idiopathic Dilated Cardiomyopathy,864
+sample_disease,560,19.444444444444446,33,Familial Hypercholesterolemia,127
+sample_treatment,302,10.48611111111111,41,UntreatedControl,43
+sample_insdc_status,207,7.187499999999999,1,public,207
+sample_presence_of_disease_complications,127,4.409722222222222,3,Yes,81
+exp_attr_Experimental Factor: clinical information,125,4.340277777777778,2,no clonal hematopoiesis of indeterminate potential,86
+sample_clinical_information,125,4.340277777777778,2,no clonal hematopoiesis of indeterminate potential,86
+sample_disease_state,80,2.7777777777777777,16,short QT syndrome type 1,12
+sample_condition,56,1.9444444444444444,6,dilated cardiomyopathy,24
+sample_disease_stage,38,1.3194444444444444,12,probable FH,10
+sample_health_state,29,1.0069444444444444,7,Dilated cardiomyopathy,9
+sample_phenotype,25,0.8680555555555556,20,"Noonan syndrome (DOID:3490, http://purl.obolibrary.org/obo/DOID_3490)",6
+sample_degree_of_aortic_valve_disease,23,0.798611111111111,4,Severe AS,10
+sample_subject_status,23,0.798611111111111,4,healthy control,9
+sample_other_medical_history,23,0.798611111111111,15,"Coronary disease, diabetes, hypertension, sick sinus syndrome",2
+sample_defect,20,0.6944444444444444,2,bicuspid aortic valve (BAV),12
+sample_clinical_group,20,0.6944444444444444,3,TS TAV,8
+sample_disease_status,20,0.6944444444444444,2,Turner Syndrome (TS),15
+exp_attr_Experimental Factor: disease,20,0.6944444444444444,3,aortic valve calcification; aortic stenosis,10
+study_attr_ENA-STATUS-ID,18,0.625,1,4.0,18
+exp_attr_ENA-STATUS-ID,18,0.625,1,4.0,18
+run_attr_ENA-STATUS-ID,18,0.625,1,4.0,18
+sample_diagnosis,13,0.45138888888888884,6,Human with familial hypertrophic cardiomyopathy,6
+sample_host_disease,9,0.3125,3,Infective endocarditis,4
+exp_attr_primary_disease,8,0.2777777777777778,1,Atrial Fibrillation,8
+sample_treatment_protocol,8,0.2777777777777778,3,before 3 months of Statin treatment; visit1,4
+sample_immunophenotype,5,0.1736111111111111,2,CD38+ hematopoietic cells,3
+sample_clinical_history,5,0.1736111111111111,1,Aortic valve stenosis,5
+exp_attr_Experimental Factor: immunophenotype,5,0.1736111111111111,2,CD38+ hematopoietic cells,3
+sample_clinical_notes,1,0.034722222222222224,1,"Diagnosed with stomatocytosis: mild reduction in erythrocyte numbers, with a normal hematocrit (HCT) and a discordant, borderline increased packed cell volume (PCV). Automated RBC parameters indicated macrocytosis, hypochromasia, increases in the red cell distribution width coefficient of variation (RDW-CV) and red cell distribution width standard deviation (RDW-SD), and a mild reticulocytosis. In addition, the hematology analyzer reported the flag �RBC Abn Distribution.� The RBC volume histogram displayed a distribution curve shifting to the right, consistent with the finding of an increased mean corpuscular volume (MCV). A blood film stained with Wright-Giemsa identified polychromasia (2-7 per 1000� magnification field), stomatocytosis with an average of 27 stomatocytes per 100 erythrocytes (27%), numerous knizocytes, and large platelet clumps in the feathered edge, indicating a falsely low automated platelet count. Presented with lethargy, anorexia, vomiting, episodes of weakness, and suspected collapse. As a result of clinical, biochemical, and imaging findings, the animal was treated for acute pancreatitis. The dog had been diagnosed with dilated cardiomyopathy (DCM) 1 year earlier. Five months prior to presentation, the dog was diagnosed with primary hypothyroidism with a serum total thyroxine (T4) concentration of 12 nmol/L (reference interval [RI] 13-52 nmol/L) and a serum thyroid-stimulating hormone (TSH) concentration of 2.80 ng/mL (RI 0-0.41 ng/mL).",1
+sample_age_at_diagnosis_years,1,0.034722222222222224,1,12.0,1
+sample_disease_category,1,0.034722222222222224,1,Cardiovascular,1
+sample_disease_category_healthy,1,0.034722222222222224,1,0.0,1
+sample_disease_category_acute_gi,1,0.034722222222222224,1,0.0,1
+sample_disease_category_musculoskeletal,1,0.034722222222222224,1,0.0,1
+sample_disease_category_ocular,1,0.034722222222222224,1,0.0,1
+sample_disease_category_integumentary,1,0.034722222222222224,1,0.0,1
+sample_disease_category_respiratory,1,0.034722222222222224,1,0.0,1
+sample_disease_category_chronic_gi,1,0.034722222222222224,1,0.0,1
+sample_disease_category_neurologic,1,0.034722222222222224,1,0.0,1
+sample_disease_category_dental,1,0.034722222222222224,1,0.0,1
+sample_disease_category_reproductive,1,0.034722222222222224,1,0.0,1
+sample_disease_category_systemic,1,0.034722222222222224,1,0.0,1
+sample_disease_category_cardiovascular,1,0.034722222222222224,1,1.0,1
+sample_disease_category_immune_mediated,1,0.034722222222222224,1,0.0,1
+sample_disease_category_urinary,1,0.034722222222222224,1,0.0,1

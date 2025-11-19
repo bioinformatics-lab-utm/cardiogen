@@ -1,0 +1,80 @@
+================================================================================
+SRA METADATA - EXPLORATORY DATA ANALYSIS REPORT
+================================================================================
+Generated: 2025-11-17 07:44:07
+Source file: sra_metadata_complete_20251117_072725.csv
+Total samples: 5
+Total columns: 65
+================================================================================
+
+DATASET OVERVIEW
+--------------------------------------------------------------------------------
+Sample/Patient attributes: 32
+Run attributes: 6
+Experiment attributes: 3
+Study attributes: 6
+
+DEMOGRAPHICS
+--------------------------------------------------------------------------------
+
+sample_sex:
+  male: 1 (20.0%)
+  Missing: 4 (80.0%)
+
+
+DISEASE/PHENOTYPE
+--------------------------------------------------------------------------------
+
+sample_study_disease:
+  Idiopathic Dilated Cardiomyopathy: 1
+
+sample_subject_is_affected:
+  Yes: 1
+
+
+TISSUE/CELL TYPE
+--------------------------------------------------------------------------------
+
+sample_body_site:
+  Blood: 1
+
+
+SEQUENCING INFORMATION
+--------------------------------------------------------------------------------
+
+Platform:
+  ILLUMINA: 2
+
+Instrument:
+  Illumina HiSeq 4000: 1
+  Illumina HiSeq 2500: 1
+
+Library Strategy:
+  WXS: 1
+  miRNA-Seq: 1
+
+Library Layout:
+  PAIRED: 1
+  SINGLE: 1
+
+Sequencing Depth (total spots):
+  Mean: 15,363,662
+  Median: 15,363,662
+  Min: 11,055,826
+  Max: 19,671,499
+
+
+DATA COMPLETENESS
+--------------------------------------------------------------------------------
+sample_sex                                           20.0% (1/5)
+sample_study_disease                                 20.0% (1/5)
+sample_body_site                                     20.0% (1/5)
+
+
+STUDY INFORMATION
+--------------------------------------------------------------------------------
+Total unique studies: 2
+
+Top studies by sample count:
+  SRP427861: 1 samples
+  SRP200233: 1 samples

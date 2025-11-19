@@ -1,0 +1,176 @@
+[
+  {
+    "srr_id": "SRR23887509",
+    "download_timestamp": "2025-11-17T07:27:21.657068",
+    "summary": {},
+    "full": {}
+  },
+  {
+    "srr_id": "SRR23888051",
+    "download_timestamp": "2025-11-17T07:27:21.656621",
+    "summary": {},
+    "full": {
+      "run": {
+        "accession": "SRR23888051",
+        "total_spots": "19671499",
+        "total_bases": "2990067848",
+        "size": "1389285002",
+        "published": "2023-10-24 04:35:34",
+        "cluster_name": "dbgap",
+        "attributes": {
+          "assembly": "GRCh37"
+        }
+      },
+      "experiment": {
+        "accession": "SRX19699076",
+        "title": "DCM Precision Medicine Study Exomes: Sample SAM957",
+        "design_description": "Base calls were generated in real-time on the instrument (RTA 2.7.6), and demultiplexed, unaligned BAM files were produced by Picard v1.111 ExtractIlluminaBarcodes and IlluminaBasecallsToSam.   Reads were aligned to the hs37d5(GRCh37) human reference using BWA v0.7.10.  Read-pairs not mapping within \u00b1 2 standard deviations of the average library size (~150 \u00b1 15 bp for exomes) were removed.  Aligned reads were further processed with Picard MarkDuplicates for duplicate removal, GATK v3. 2-2 IndelRealigner for realignment around short insertion-deletions, and GATK v3.2-2BaseRecalibrator for base quality score recalibration.",
+        "library_name": "SAM957",
+        "library_strategy": "WXS",
+        "library_source": "GENOMIC",
+        "library_selection": "PCR",
+        "library_layout": "PAIRED",
+        "platform": {
+          "type": "ILLUMINA",
+          "instrument_model": "Illumina HiSeq 4000"
+        },
+        "attributes": {
+          "alignment_software": "Burrows-Wheeler Aligner v0.7.10."
+        }
+      },
+      "sample": {
+        "accession": "SRS17067688",
+        "title": "Non-tumor DNA sample from Blood of a human male participant in the dbGaP study \"Precision Medicine for Dilated Cardiomyopathy in European and African Ancestry\"",
+        "taxon_id": "9606",
+        "scientific_name": "Homo sapiens",
+        "common_name": "",
+        "description": "",
+        "attributes": {
+          "gap_accession": "phs002641",
+          "submitter handle": "NHLBI_DCMPrecisionMedicine",
+          "biospecimen repository": "NHLBI_DCMPrecisionMedicine",
+          "study name": "Precision Medicine for Dilated Cardiomyopathy in European and African Ancestry",
+          "study design": "Clinical Trial",
+          "biospecimen repository sample id": "SAM957",
+          "submitted sample id": "SAM957",
+          "submitted subject id": "769",
+          "gap_sample_id": "5011117",
+          "gap_subject_id": "4013759",
+          "sex": "male",
+          "study disease": "Idiopathic Dilated Cardiomyopathy",
+          "body site": "Blood",
+          "analyte type": "DNA",
+          "is tumor": "No",
+          "subject is affected": "Yes",
+          "gap_consent_code": "1",
+          "gap_consent_short_name": "DS-DC"
+        }
+      },
+      "study": {
+        "accession": "SRP427861",
+        "title": "Precision medicine for dilated cardiomyopathy in European and African ancestry",
+        "abstract": "The DCM Precision Medicine Study is a multi-site consortium-based cross-sectional study of families with an embedded open-label randomized controlled trial. The aims of the study are to test the hypothesis that dilated cardiomyopathy (DCM) has a substantial genetic basis and to evaluate the effectiveness of a family communication intervention in improving the uptake of preventive screening and surveillance in at-risk first-degree relatives. The Study goal was to recruit 1,300 individuals (600 non-Hispanic African ancestry, 600 non-Hispanic European ancestry, and 100 Hispanic; 50% female) meeting rigorous diagnostic criteria for idiopathic DCM (probands) and 2,600 of their relatives. The probands were inpatients or outpatients identified by heart failure and cardiac transplant... (for more see dbGaP study page.)",
+        "description": "",
+        "study_type": "",
+        "attributes": {
+          "parent_bioproject": "PRJNA771722"
+        }
+      },
+      "submission": {
+        "accession": "SRA1606255",
+        "submission_date": null,
+        "lab_name": "",
+        "center_name": "OSUMC-phs002641"
+      },
+      "organization": {
+        "type": "center",
+        "name": "OSUMC-phs002641"
+      }
+    },
+    "uid": "27006629"
+  },
+  {
+    "srr_id": "SRR23887977",
+    "download_timestamp": "2025-11-17T07:27:23.042751",
+    "summary": {},
+    "full": {}
+  },
+  {
+    "srr_id": "SRR13590947",
+    "download_timestamp": "2025-11-17T07:27:23.270142",
+    "summary": {},
+    "full": {},
+    "uid": "13074180"
+  },
+  {
+    "srr_id": "SRR9186256",
+    "download_timestamp": "2025-11-17T07:27:24.038611",
+    "summary": {},
+    "full": {
+      "run": {
+        "accession": "SRR9186256",
+        "total_spots": "11055826",
+        "total_bases": "552791300",
+        "size": "297570015",
+        "published": "2020-06-30 00:01:01",
+        "cluster_name": "public",
+        "attributes": {}
+      },
+      "experiment": {
+        "accession": "SRX5958740",
+        "title": "control",
+        "design_description": "1 ug of total RNA were used to prepare small RNA library according to protocol of NEBNext Small RNA Library Prep Set for Illumina",
+        "library_name": "con2-srna",
+        "library_strategy": "miRNA-Seq",
+        "library_source": "TRANSCRIPTOMIC",
+        "library_selection": "RT-PCR",
+        "library_layout": "SINGLE",
+        "platform": {
+          "type": "ILLUMINA",
+          "instrument_model": "Illumina HiSeq 2500"
+        },
+        "attributes": {}
+      },
+      "sample": {
+        "accession": "SRS4868050",
+        "title": "healthy control2",
+        "taxon_id": "9606",
+        "scientific_name": "Homo sapiens",
+        "common_name": "",
+        "description": "",
+        "attributes": {
+          "strain": "not applicable",
+          "isolate": "the samples obtained by lysing red blood cells from the whole blood samples",
+          "collection_date": "2016-11-12",
+          "env_broad_scale": "not applicable",
+          "env_local_scale": "not applicable",
+          "env_medium": "not applicable",
+          "geo_loc_name": "China:Beijing",
+          "host": "not applicable",
+          "isol_growth_condt": "not applicable",
+          "lat_lon": "40 N 116 E",
+          "BioSampleModel": "MIGS/MIMS/MIMARKS.human-associated"
+        }
+      },
+      "study": {
+        "accession": "SRP200233",
+        "title": "the small RNA sequencing of whole blood in homozygous familial hypercholesterolemia",
+        "abstract": "to explore the small RNA differential expression in homozygous familial hypercholesterolemia",
+        "description": "",
+        "study_type": "",
+        "attributes": {}
+      },
+      "submission": {
+        "accession": "SRA893462",
+        "submission_date": null,
+        "lab_name": "The Key Laboratory of Remodeling related Cardiovas",
+        "center_name": "Beijing Anzhen Hospital, Afliated to Capital Medical University"
+      },
+      "organization": {
+        "type": "institute",
+        "name": "Beijing Anzhen Hospital, Afliated to Capital Medical University"
+      }
+    },
+    "uid": "7994246"
+  }
+]

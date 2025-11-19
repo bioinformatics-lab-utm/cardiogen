@@ -1,0 +1,294 @@
+================================================================================
+SRA METADATA - EXPLORATORY DATA ANALYSIS REPORT
+================================================================================
+Generated: 2025-11-17 09:03:40
+Source file: sra_metadata_complete_20251117_085704.csv
+Total samples: 4596
+Total columns: 296
+================================================================================
+
+DATASET OVERVIEW
+--------------------------------------------------------------------------------
+Sample/Patient attributes: 215
+Run attributes: 26
+Experiment attributes: 18
+Study attributes: 16
+
+DEMOGRAPHICS
+--------------------------------------------------------------------------------
+
+sample_sex:
+  male: 1095 (23.8%)
+  female: 919 (20.0%)
+  -: 61 (1.3%)
+  M: 18 (0.4%)
+  not collected: 13 (0.3%)
+  F: 6 (0.1%)
+  unknown: 3 (0.1%)
+  not determined: 1 (0.0%)
+  not applicable: 1 (0.0%)
+  Missing: 2479 (53.9%)
+
+sample_gender:
+  male: 31 (0.7%)
+  female: 12 (0.3%)
+  Missing: 4553 (99.1%)
+
+sample_sex_age:
+  M-60: 4 (0.1%)
+  M-58: 4 (0.1%)
+  M-54: 2 (0.0%)
+  M-48: 2 (0.0%)
+  M-36: 2 (0.0%)
+  Missing: 4582 (99.7%)
+
+sample_host_sex:
+  male: 5 (0.1%)
+  female: 1 (0.0%)
+  Missing: 4590 (99.9%)
+
+sample_equine_sex:
+  Mare: 1 (0.0%)
+  Missing: 4595 (100.0%)
+
+Age-related attributes (14):
+  sample_age: 1079 samples
+    Mean: 54.4, Median: 56.0
+    Range: 1.0 - 92.0
+  sample_human_associated_environmental_package: 69 samples
+  sample_dev_stage: 45 samples
+  sample_developmental_stage: 189 samples
+  sample_disease_stage: 38 samples
+  sample_agent: 32 samples
+  sample_age_at_diagnosis_years: 1 samples
+    Mean: 12.0, Median: 12.0
+    Range: 12.0 - 12.0
+  sample_sex_age: 14 samples
+  sample_development_stage: 9 samples
+  sample_passages: 4 samples
+  sample_absolute_macrophages: 2 samples
+    Mean: 0.3, Median: 0.3
+    Range: 0.1 - 0.4
+  sample_host_age: 2 samples
+    Mean: 46.0, Median: 46.0
+    Range: 35.0 - 57.0
+  sample_age_of_collection_days: 1 samples
+  sample_sample_age: 1 samples
+    Mean: 1.0, Median: 1.0
+    Range: 1.0 - 1.0
+
+
+DISEASE/PHENOTYPE
+--------------------------------------------------------------------------------
+
+sample_study_disease:
+  Idiopathic Dilated Cardiomyopathy: 864
+  Turner Syndrome: 63
+  Cardiomyopathy, Dilated: 28
+  Atrial Fibrillation: 8
+
+sample_subject_is_affected:
+  Yes: 963
+
+sample_disease:
+  Familial Hypercholesterolemia: 127
+  aortic valve calcification; aortic stenosis: 123
+  HCM: 86
+  familial hypercholesterolemia: 37
+  calcified: 28
+  normal: 25
+  idiopathic dilated cardiomyopathy (DCM): 20
+  Healthy: 16
+  dilated cardiomyopathy: 12
+  hypertrophic cardiomyopathy: 7
+  ... and 25 more
+
+sample_presence_of_disease_complications:
+  Yes: 81
+  No: 42
+  -: 4
+
+sample_disease_status:
+  Turner Syndrome (TS): 15
+  non-syndromic (NS): 5
+
+
+TISSUE/CELL TYPE
+--------------------------------------------------------------------------------
+
+sample_body_site:
+  Blood: 869
+  PMNC/RBC Pellet: 31
+  blood: 28
+  BUFFY CT: 18
+  SALIVA: 12
+  Aortic valve leaflets: 7
+  Buccal: 3
+  SALIVA SWAB: 2
+
+sample_tissue:
+  Blood: 353
+  blood: 335
+  heart: 75
+  embroynic fibroblast: 42
+  Plasma: 35
+  interventricular septum: 29
+  left ventricle: 25
+  Endomyocardial biopsy: 25
+  plasma: 23
+  Aortic valve: 22
+
+sample_source_name:
+  Heart (Left Ventricle Apex): 128
+  heart tissue: 46
+  Plasma: 35
+  aortic valve endothelial cells: 32
+  interventricular septum: 29
+  Endomyocardial biopsy: 25
+  plasma: 23
+  Human aortic valve: 22
+  Aortic valve: 22
+  aortic valve: 22
+
+sample_cell_type:
+  Heart (Left Ventricle Apex): 128
+  CM cells: 29
+  Frozen endomyocardial biopsy in bulk: 25
+  iPSC-derived cardiomyocytes: 21
+  iPSC-derived skeletal muscle cells: 20
+  PBMC: 17
+  Monocyte: 17
+  iPSC-derived cardiomyocyte: 12
+  Cardiac myocytes: 10
+  iPSC-CMs: 10
+
+sample_cell_line:
+  Frozen endomyocardial biopsy in bulk: 25
+  HeLa (Feldman at al., 2019): 8
+  primary cell line: 6
+  LUMCi028-A: 5
+  hiPSCs-U2: 5
+  Target-Array HEK293T: 5
+  AC16 cells: 5
+  isHOCMx1.14 (UMGi030-A.14): 4
+  Proliferating Human Hepatocytes: 3
+  isHOCMx2.3 (UMGi031-A.3): 3
+
+
+SEQUENCING INFORMATION
+--------------------------------------------------------------------------------
+
+Platform:
+  ILLUMINA: 2880
+  ABI_SOLID: 34
+  BGISEQ: 30
+  DNBSEQ: 6
+  ION_TORRENT: 1
+  COMPLETE_GENOMICS: 1
+
+Instrument:
+  Illumina HiSeq 4000: 975
+  Illumina NovaSeq 6000: 606
+  Illumina MiSeq: 382
+  NextSeq 500: 305
+  Illumina HiSeq 2000: 279
+  Illumina HiSeq 2500: 150
+  HiSeq X Ten: 67
+  NextSeq 550: 57
+  AB SOLiD 4 System: 28
+  Illumina HiSeq 3000: 26
+
+Library Strategy:
+  WXS: 1008
+  Targeted-Capture: 540
+  RNA-Seq: 462
+  AMPLICON: 284
+  OTHER: 234
+  WGS: 151
+  miRNA-Seq: 106
+  ChIP-Seq: 85
+  ATAC-seq: 39
+  Bisulfite-Seq: 25
+  Hi-C: 8
+  RIP-Seq: 5
+  ncRNA-Seq: 5
+
+Library Layout:
+  PAIRED: 2380
+  SINGLE: 572
+
+Sequencing Depth (total spots):
+  Mean: 44,112,454
+  Median: 22,282,251
+  Min: 1
+  Max: 747,870,025
+
+
+DATA COMPLETENESS
+--------------------------------------------------------------------------------
+sample_sex                                           46.1% (2117/4596)
+sample_tissue                                        28.6% (1313/4596)
+sample_age                                           23.5% (1079/4596)
+sample_body_site                                     21.1% (970/4596)
+sample_study_disease                                 21.0% (963/4596)
+sample_disease                                       12.3% (566/4596)
+sample_genotype                                       7.3% (337/4596)
+sample_treatment                                      6.7% (307/4596)
+sample_developmental_stage                            4.1% (189/4596)
+sample_presence_of_disease_complications              2.8% (127/4596)
+sample_disease_state                                  2.1% (97/4596)
+sample_human_associated_environmental_package         1.5% (69/4596)
+sample_dev_stage                                      1.0% (45/4596)
+sample_disease_stage                                  0.8% (38/4596)
+sample_agent                                          0.7% (32/4596)
+sample_phenotype                                      0.5% (25/4596)
+sample_tissue_type                                    0.5% (25/4596)
+sample_degree_of_aortic_valve_disease                 0.5% (23/4596)
+sample_disease_status                                 0.4% (20/4596)
+sample_sex_age                                        0.3% (14/4596)
+sample_genotype/variation                             0.2% (10/4596)
+sample_host_disease                                   0.2% (9/4596)
+sample_development_stage                              0.2% (9/4596)
+sample_treatment_protocol                             0.2% (8/4596)
+sample_host_sex                                       0.1% (6/4596)
+sample_host_tissue_sampled                            0.1% (6/4596)
+sample_immunophenotype                                0.1% (5/4596)
+sample_passages                                       0.1% (4/4596)
+sample_absolute_macrophages                           0.0% (2/4596)
+sample_host_age                                       0.0% (2/4596)
+sample_age_at_diagnosis_years                         0.0% (1/4596)
+sample_age_of_collection_days                         0.0% (1/4596)
+sample_sample_age                                     0.0% (1/4596)
+sample_equine_sex                                     0.0% (1/4596)
+sample_disease_category                               0.0% (1/4596)
+sample_disease_category_healthy                       0.0% (1/4596)
+sample_disease_category_acute_gi                      0.0% (1/4596)
+sample_disease_category_musculoskeletal               0.0% (1/4596)
+sample_disease_category_ocular                        0.0% (1/4596)
+sample_disease_category_integumentary                 0.0% (1/4596)
+sample_disease_category_respiratory                   0.0% (1/4596)
+sample_disease_category_chronic_gi                    0.0% (1/4596)
+sample_disease_category_neurologic                    0.0% (1/4596)
+sample_disease_category_dental                        0.0% (1/4596)
+sample_disease_category_reproductive                  0.0% (1/4596)
+sample_disease_category_systemic                      0.0% (1/4596)
+sample_disease_category_cardiovascular                0.0% (1/4596)
+sample_disease_category_immune_mediated               0.0% (1/4596)
+sample_disease_category_urinary                       0.0% (1/4596)
+
+
+STUDY INFORMATION
+--------------------------------------------------------------------------------
+Total unique studies: 132
+
+Top studies by sample count:
+  SRP427861: 864 samples
+  SRP384705: 188 samples
+  SRP413102: 155 samples
+  SRP539819: 128 samples
+  SRP280365: 127 samples
+  ERP134973: 113 samples
+  SRP556478: 79 samples
+  SRP152521: 63 samples
+  SRP452462: 61 samples
+  SRP253931: 61 samples
