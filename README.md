@@ -22,7 +22,6 @@
 - **Sample-level Deduplication** - Patient-level analysis (2,712 unique from 2,880 runs)
 - **Phenotype Analysis** - 10 detailed graphs covering sex, age, disease, tissue, treatment, conditions
 - **45+ Visualizations** - Publication-ready figures (300 DPI, multiple formats)
-- **PowerPoint Generator** - Automated presentation creation (50 slides)
 
 ### Data Processing
 - **Batch Pipeline** - Process 1000+ samples efficiently
@@ -63,9 +62,6 @@ sudo apt-get install sra-toolkit fastqc
 ```bash
 # Run complete metadata analysis
 python sra_metadata_analysis.py
-
-# Generate PowerPoint presentation
-python create_presentation.py
 ```
 
 #### Data Download Pipeline
@@ -97,7 +93,6 @@ python scripts/metadata_eda.py
 ```
 cardiogen/
 ├── sra_metadata_analysis.py    # Main analysis script (103KB, 45+ graphs)
-├── create_presentation.py       # PowerPoint generator (50 slides)
 ├── requirements.txt             # Python dependencies
 ├── config/
 │   └── config.py               # Configuration settings
@@ -116,7 +111,6 @@ cardiogen/
 │   ├── adapters/               # Trimmomatic adapters
 │   ├── qc/                     # FastQC reports
 │   └── results/                # Processing results
-├── SRA_Complete_Phenotypes.pptx # Generated presentation (8.2MB)
 └── PROJECT_AUDIT.md            # Comprehensive project audit
 ```
 
@@ -152,7 +146,6 @@ cardiogen/
 ### Generated Files
 - **CSV Reports:** Summary statistics, filtered metadata, quality metrics
 - **PNG Figures:** 300 DPI publication-ready visualizations
-- **PowerPoint:** Automated presentation with all graphs
 - **JSON Metadata:** Complete SRA records with full hierarchy
 
 ## Metadata Analysis
@@ -187,15 +180,6 @@ analyzer.analyze_sample_level_summary()
 analyzer.analyze_instruments()
 ```
 
-### Presentation Customization
-```python
-from create_presentation import SRAPresentationCreator
-
-# Create custom presentation
-creator = SRAPresentationCreator()
-creator.create_presentation()  # Generates SRA_Complete_Phenotypes.pptx
-```
-
 ### Pipeline Configuration
 Edit `config/config.py` to customize:
 - Data directories
@@ -207,7 +191,6 @@ Edit `config/config.py` to customize:
 
 - **Analysis Runtime:** ~5-10 minutes for full metadata analysis
 - **Visualization Generation:** ~2-3 minutes for 45 graphs
-- **Presentation Creation:** ~30 seconds
 - **Data Processing:** ~10-15 minutes per batch (depending on batch size)
 
 ## Troubleshooting
@@ -216,7 +199,7 @@ Edit `config/config.py` to customize:
 
 **Missing Dependencies**
 ```bash
-pip install pandas numpy matplotlib seaborn scipy python-pptx
+pip install pandas numpy matplotlib seaborn scipy
 ```
 
 **SRA Tools Not Found**

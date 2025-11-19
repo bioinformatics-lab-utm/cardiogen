@@ -78,6 +78,10 @@ DRR*/
 .ipynb_checkpoints/
 notebook.ipynb
 
+# Presentations
+*.pptx
+create_presentation.py
+
 # Downloaded files
 downloads/
 
