@@ -1,0 +1,118 @@
+# Nextflow
+.nextflow/
+.nextflow.log*
+work/
+results/
+*.html
+*.svg
+trace.txt
+timeline.html
+report.html
+dag.dot
+.nextflow.pid
+
+# FastQC
+*_fastqc.html
+*_fastqc.zip
+*_fastqc/
+
+# MultiQC
+multiqc_report.html
+multiqc_data/
+*_multiqc*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# R
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+
+# Conda
+.conda/
+environment.yml
+
+# Docker
+Dockerfile.build
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Data files (uncomment if you want to ignore large data files)
+# *.fastq
+# *.fastq.gz
+# *.fq
+# *.fq.gz
+# *.sam
+# *.bam
+# *.bai
+# *.vcf
+# *.vcf.gz
+
+# Test data (if you want to keep test data in repo, comment these out)
+test_data/
+# **/test_data/
+
+# Config secrets
+secrets.config
+*.key
+*.pem
+
+# Backup files
+*.bak
+*.backup
