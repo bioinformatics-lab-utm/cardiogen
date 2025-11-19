@@ -1,4 +1,4 @@
-# 🧬 CardioGen - Cardiovascular Disease RNA-seq Analysis Pipeline
+# CardioGen - Cardiovascular Disease RNA-seq Analysis Pipeline
 
 [![Python](https://img.shields.io/badge/Python-3.11%2B-blue)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
@@ -6,7 +6,7 @@
 
 > Comprehensive SRA metadata analysis and batch processing pipeline for cardiovascular disease genomics research
 
-## 📊 Dataset Overview
+## Dataset Overview
 
 - **Total Samples:** 4,596 SRA runs
 - **Illumina Filtered:** 2,880 runs from 2,712 unique patients
@@ -15,29 +15,29 @@
 - **Visualizations:** 45+ publication-quality graphs
 - **Storage:** 5.1TB processed data (3.3TB SRA, 1.8TB archive, 650MB QC)
 
-## 🎯 Key Features
+## Key Features
 
 ### Data Analysis
-- 📈 **Comprehensive Metadata Analysis** - Complete exploration of 300+ metadata columns
-- 👥 **Sample-level Deduplication** - Patient-level analysis (2,712 unique from 2,880 runs)
-- 🧬 **Phenotype Analysis** - 10 detailed graphs covering sex, age, disease, tissue, treatment, conditions
-- 📊 **45+ Visualizations** - Publication-ready figures (300 DPI, multiple formats)
-- 📑 **PowerPoint Generator** - Automated presentation creation (50 slides)
+- **Comprehensive Metadata Analysis** - Complete exploration of 300+ metadata columns
+- **Sample-level Deduplication** - Patient-level analysis (2,712 unique from 2,880 runs)
+- **Phenotype Analysis** - 10 detailed graphs covering sex, age, disease, tissue, treatment, conditions
+- **45+ Visualizations** - Publication-ready figures (300 DPI, multiple formats)
+- **PowerPoint Generator** - Automated presentation creation (50 slides)
 
 ### Data Processing
-- 🚀 **Batch Pipeline** - Process 1000+ samples efficiently
-- 💾 **Space Optimization** - Automatic cleanup after processing
-- 📊 **Quality Control** - FastQC analysis for all samples
-- 🔄 **Resumable Processing** - Continue from interrupted batches
-- 🏥 **Disease Organization** - Results organized by cardiovascular disease type
+- **Batch Pipeline** - Process 1000+ samples efficiently
+- **Space Optimization** - Automatic cleanup after processing
+- **Quality Control** - FastQC analysis for all samples
+- **Resumable Processing** - Continue from interrupted batches
+- **Disease Organization** - Results organized by cardiovascular disease type
 
 ### Technical
-- 🐍 **Python 3.11+** - Modern OOP design with type hints
-- 📓 **Jupyter Integration** - Interactive analysis notebooks
-- 🔧 **Modular Architecture** - Reusable components in `src/cardiogen/`
-- 📦 **Full Dependency Management** - Virtual environment with requirements.txt
+- **Python 3.11+** - Modern OOP design with type hints
+- **Jupyter Integration** - Interactive analysis notebooks
+- **Modular Architecture** - Reusable components in `src/cardiogen/`
+- **Full Dependency Management** - Virtual environment with requirements.txt
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Installation
 
@@ -92,7 +92,7 @@ python scripts/view_metadata.py
 python scripts/metadata_eda.py
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 cardiogen/
@@ -120,7 +120,7 @@ cardiogen/
 └── PROJECT_AUDIT.md            # Comprehensive project audit
 ```
 
-## 📊 Analysis Outputs
+## Analysis Outputs
 
 ### Visualizations (45 graphs)
 1. **Instruments & Technology**
@@ -155,7 +155,7 @@ cardiogen/
 - **PowerPoint:** Automated presentation with all graphs
 - **JSON Metadata:** Complete SRA records with full hierarchy
 
-## 🧬 Metadata Analysis
+## Metadata Analysis
 
 ### SRA Hierarchy
 ```
@@ -172,7 +172,7 @@ STUDY → SAMPLE → EXPERIMENT → RUN
 - **27 phenotype columns** analyzed (sex, age, disease, tissue, treatment, etc.)
 - **300+ total metadata attributes** per sample
 
-## 🔧 Advanced Usage
+## Advanced Usage
 
 ### Custom Analysis
 ```python
@@ -203,14 +203,14 @@ Edit `config/config.py` to customize:
 - Quality control thresholds
 - Output formats
 
-## 📈 Performance
+## Performance
 
 - **Analysis Runtime:** ~5-10 minutes for full metadata analysis
 - **Visualization Generation:** ~2-3 minutes for 45 graphs
 - **Presentation Creation:** ~30 seconds
 - **Data Processing:** ~10-15 minutes per batch (depending on batch size)
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -233,7 +233,7 @@ brew install sra-tools
 - Review archive directory: `du -sh archive/`
 - Clean temporary files: `bash scripts/cleanup.sh`
 
-## 📝 Citation
+## Citation
 
 If you use this pipeline in your research, please cite:
 
@@ -246,11 +246,11 @@ If you use this pipeline in your research, please cite:
 }
 ```
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please:
 1. Fork the repository
@@ -259,13 +259,13 @@ Contributions are welcome! Please:
 4. Push to branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📧 Contact
+## Contact
 
 **Bioinformatics Lab UTM**
 - GitHub: [@bioinformatics-lab-utm](https://github.com/bioinformatics-lab-utm)
 - Repository: [cardiogen](https://github.com/bioinformatics-lab-utm/cardiogen)
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - NCBI SRA for cardiovascular disease datasets
 - FastQC for quality control tools
