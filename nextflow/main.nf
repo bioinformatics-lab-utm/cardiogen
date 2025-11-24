@@ -19,6 +19,14 @@ include { CUTADAPT } from './modules/cutadapt'
 include { TRIMMOMATIC } from './modules/trimmomatic'
 include { CUTADAPT_CLEAN } from './modules/cutadapt_clean'
 include { TRIMMOMATIC_FINAL } from './modules/trimmomatic_final'
+include { FASTQC_FASTP } from './modules/fastqc_fastp'
+include { FASTQC_CUTADAPT } from './modules/fastqc_cutadapt'
+include { FASTQC_TRIMMOMATIC } from './modules/fastqc_trimmomatic'
+include { FASTQC_COMBINED } from './modules/fastqc_combined'
+include { MULTIQC_FASTP } from './modules/multiqc_fastp'
+include { MULTIQC_CUTADAPT } from './modules/multiqc_cutadapt'
+include { MULTIQC_TRIMMOMATIC } from './modules/multiqc_trimmomatic'
+include { MULTIQC_COMBINED } from './modules/multiqc_combined'
 
 // Parameters
 params.input_dir = "${projectDir}/test_data/ont_data"
@@ -93,6 +101,18 @@ workflow {
     CUTADAPT_CLEAN(fastq_ch)
     TRIMMOMATIC_FINAL(CUTADAPT_CLEAN.out.reads)
 
+    // Run FastQC on processed results
+    FASTQC_FASTP(FASTP.out.reads)
+    FASTQC_CUTADAPT(CUTADAPT.out.reads)
+    FASTQC_TRIMMOMATIC(TRIMMOMATIC.out.paired_reads)
+    FASTQC_COMBINED(TRIMMOMATIC_FINAL.out.paired_reads)
+
+    // Run separate MultiQC for each processing step
+    MULTIQC_FASTP(FASTQC_FASTP.out.zip.map { meta, files -> files }.collect())
+    MULTIQC_CUTADAPT(FASTQC_CUTADAPT.out.zip.map { meta, files -> files }.collect())
+    MULTIQC_TRIMMOMATIC(FASTQC_TRIMMOMATIC.out.zip.map { meta, files -> files }.collect())
+    MULTIQC_COMBINED(FASTQC_COMBINED.out.zip.map { meta, files -> files }.collect())
+
     // Print completion message
     workflow.onComplete {
         log.info """
@@ -103,10 +123,22 @@ workflow {
         
         FastQC reports (raw data): results/01_QC/fastqc/
         MultiQC report (raw data QC): results/01_QC/multiqc/multiqc_report.html
-        Fastp results (independent processing): results/02_fastp/
-        Cutadapt results (independent processing): results/03_cutadapt/
-        Trimmomatic results (independent processing): results/04_trimmomatic/
+        
+        Fastp results: results/02_fastp/
+        Fastp FastQC reports: results/02_fastp/fastqc/
+        Fastp MultiQC report: results/02_fastp/multiqc/multiqc_report.html
+        
+        Cutadapt results: results/03_cutadapt/
+        Cutadapt FastQC reports: results/03_cutadapt/fastqc/
+        Cutadapt MultiQC report: results/03_cutadapt/multiqc/multiqc_report.html
+        
+        Trimmomatic results: results/04_trimmomatic/
+        Trimmomatic FastQC reports: results/04_trimmomatic/fastqc/
+        Trimmomatic MultiQC report: results/04_trimmomatic/multiqc/multiqc_report.html
+        
         Combined Cutadapt+Trimmomatic results: results/05_cutadapt_trimmomatic/
+        Combined FastQC reports: results/05_cutadapt_trimmomatic/fastqc/
+        Combined MultiQC report: results/05_cutadapt_trimmomatic/multiqc/multiqc_report.html
         ================================================================
         """.stripIndent()
     }

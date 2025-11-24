@@ -1,7 +1,7 @@
-process MULTIQC {
+process MULTIQC_CUTADAPT {
     label 'process_single'
 
-    publishDir "${params.outdir}/01_QC/multiqc", mode: 'copy'
+    publishDir "${params.outdir}/03_cutadapt/multiqc", mode: 'copy'
 
     container 'multiqc/multiqc:v1.15'
 
@@ -19,30 +19,27 @@ process MULTIQC {
 
     script:
     def args = task.ext.args ?: ''
-    def prefix = task.ext.prefix ?: 'multiqc'
-    
     """
     multiqc \
         $args \
-        --filename ${prefix}_report.html \
-        --force \
+        --filename multiqc_report.html \
         .
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        multiqc: \$(multiqc --version | sed 's/^.*multiqc, version //')
+        multiqc: \$( multiqc --version | sed -e "s/multiqc, version //g" )
     END_VERSIONS
     """
 
     stub:
-    def prefix = task.ext.prefix ?: 'multiqc'
     """
-    mkdir ${prefix}_data
-    touch ${prefix}_report.html
-    
+    touch multiqc_report.html
+    mkdir multiqc_data
+    mkdir multiqc_plots
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        multiqc: \$(multiqc --version | sed 's/^.*multiqc, version //')
+        multiqc: \$( multiqc --version | sed -e "s/multiqc, version //g" )
     END_VERSIONS
     """
 }
