@@ -10,9 +10,9 @@ process DELLY_HG37_BOWTIE2 {
     tuple val(meta), path(bam), path(bai)
 
     output:
-    tuple val(meta), path("*.vcf.gz"),     emit: vcf
-    tuple val(meta), path("*.vcf.gz.tbi"), emit: tbi
-    path "versions.yml",                   emit: versions
+    tuple val(meta), path("*.bcf"),     emit: vcf
+    tuple val(meta), path("*.bcf.csi"), emit: tbi
+    path "versions.yml",                emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -29,19 +29,9 @@ process DELLY_HG37_BOWTIE2 {
         $args \\
         ${bam}
 
-    # Install bcftools and htslib for conversion (Alpine Linux)
-    apk add --no-cache bcftools htslib > /dev/null 2>&1
-
-    # Convert BCF to VCF.gz
-    bcftools view ${prefix}.bcf | bgzip -c > ${prefix}.vcf.gz
-    
-    # Index VCF
-    tabix -p vcf ${prefix}.vcf.gz
-
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         delly: \$(delly 2>&1 | grep "Version:" | sed 's/^.*Version: //; s/).*\$//')
-        bcftools: \$(bcftools --version 2>&1 | head -n1 | sed 's/^.*bcftools //; s/ .*\$//')
     END_VERSIONS
     """
 }
@@ -58,9 +48,9 @@ process DELLY_HG38_BOWTIE2 {
     tuple val(meta), path(bam), path(bai)
 
     output:
-    tuple val(meta), path("*.vcf.gz"),     emit: vcf
-    tuple val(meta), path("*.vcf.gz.tbi"), emit: tbi
-    path "versions.yml",                   emit: versions
+    tuple val(meta), path("*.bcf"),     emit: vcf
+    tuple val(meta), path("*.bcf.csi"), emit: tbi
+    path "versions.yml",                emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -77,19 +67,9 @@ process DELLY_HG38_BOWTIE2 {
         $args \\
         ${bam}
 
-    # Install bcftools and htslib for conversion (Alpine Linux)
-    apk add --no-cache bcftools htslib > /dev/null 2>&1
-
-    # Convert BCF to VCF.gz
-    bcftools view ${prefix}.bcf | bgzip -c > ${prefix}.vcf.gz
-    
-    # Index VCF
-    tabix -p vcf ${prefix}.vcf.gz
-
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         delly: \$(delly 2>&1 | grep "Version:" | sed 's/^.*Version: //; s/).*\$//')
-        bcftools: \$(bcftools --version 2>&1 | head -n1 | sed 's/^.*bcftools //; s/ .*\$//')
     END_VERSIONS
     """
 }
@@ -106,9 +86,9 @@ process DELLY_T2T_BOWTIE2 {
     tuple val(meta), path(bam), path(bai)
 
     output:
-    tuple val(meta), path("*.vcf.gz"),     emit: vcf
-    tuple val(meta), path("*.vcf.gz.tbi"), emit: tbi
-    path "versions.yml",                   emit: versions
+    tuple val(meta), path("*.bcf"),     emit: vcf
+    tuple val(meta), path("*.bcf.csi"), emit: tbi
+    path "versions.yml",                emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -125,19 +105,9 @@ process DELLY_T2T_BOWTIE2 {
         $args \\
         ${bam}
 
-    # Install bcftools and htslib for conversion (Alpine Linux)
-    apk add --no-cache bcftools htslib > /dev/null 2>&1
-
-    # Convert BCF to VCF.gz
-    bcftools view ${prefix}.bcf | bgzip -c > ${prefix}.vcf.gz
-    
-    # Index VCF
-    tabix -p vcf ${prefix}.vcf.gz
-
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         delly: \$(delly 2>&1 | grep "Version:" | sed 's/^.*Version: //; s/).*\$//')
-        bcftools: \$(bcftools --version 2>&1 | head -n1 | sed 's/^.*bcftools //; s/ .*\$//')
     END_VERSIONS
     """
 }
@@ -154,9 +124,9 @@ process DELLY_HG37_BWAMEM {
     tuple val(meta), path(bam), path(bai)
 
     output:
-    tuple val(meta), path("*.vcf.gz"),     emit: vcf
-    tuple val(meta), path("*.vcf.gz.tbi"), emit: tbi
-    path "versions.yml",                   emit: versions
+    tuple val(meta), path("*.bcf"),     emit: vcf
+    tuple val(meta), path("*.bcf.csi"), emit: tbi
+    path "versions.yml",                emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -173,19 +143,9 @@ process DELLY_HG37_BWAMEM {
         $args \\
         ${bam}
 
-    # Install bcftools and htslib for conversion (Alpine Linux)
-    apk add --no-cache bcftools htslib > /dev/null 2>&1
-
-    # Convert BCF to VCF.gz
-    bcftools view ${prefix}.bcf | bgzip -c > ${prefix}.vcf.gz
-    
-    # Index VCF
-    tabix -p vcf ${prefix}.vcf.gz
-
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         delly: \$(delly 2>&1 | grep "Version:" | sed 's/^.*Version: //; s/).*\$//')
-        bcftools: \$(bcftools --version 2>&1 | head -n1 | sed 's/^.*bcftools //; s/ .*\$//')
     END_VERSIONS
     """
 }
@@ -202,9 +162,9 @@ process DELLY_HG38_BWAMEM {
     tuple val(meta), path(bam), path(bai)
 
     output:
-    tuple val(meta), path("*.vcf.gz"),     emit: vcf
-    tuple val(meta), path("*.vcf.gz.tbi"), emit: tbi
-    path "versions.yml",                   emit: versions
+    tuple val(meta), path("*.bcf"),     emit: vcf
+    tuple val(meta), path("*.bcf.csi"), emit: tbi
+    path "versions.yml",                emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -221,19 +181,9 @@ process DELLY_HG38_BWAMEM {
         $args \\
         ${bam}
 
-    # Install bcftools and htslib for conversion (Alpine Linux)
-    apk add --no-cache bcftools htslib > /dev/null 2>&1
-
-    # Convert BCF to VCF.gz
-    bcftools view ${prefix}.bcf | bgzip -c > ${prefix}.vcf.gz
-    
-    # Index VCF
-    tabix -p vcf ${prefix}.vcf.gz
-
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         delly: \$(delly 2>&1 | grep "Version:" | sed 's/^.*Version: //; s/).*\$//')
-        bcftools: \$(bcftools --version 2>&1 | head -n1 | sed 's/^.*bcftools //; s/ .*\$//')
     END_VERSIONS
     """
 }
@@ -250,9 +200,9 @@ process DELLY_T2T_BWAMEM {
     tuple val(meta), path(bam), path(bai)
 
     output:
-    tuple val(meta), path("*.vcf.gz"),     emit: vcf
-    tuple val(meta), path("*.vcf.gz.tbi"), emit: tbi
-    path "versions.yml",                   emit: versions
+    tuple val(meta), path("*.bcf"),     emit: vcf
+    tuple val(meta), path("*.bcf.csi"), emit: tbi
+    path "versions.yml",                emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -269,19 +219,9 @@ process DELLY_T2T_BWAMEM {
         $args \\
         ${bam}
 
-    # Install bcftools and htslib for conversion (Alpine Linux)
-    apk add --no-cache bcftools htslib > /dev/null 2>&1
-
-    # Convert BCF to VCF.gz
-    bcftools view ${prefix}.bcf | bgzip -c > ${prefix}.vcf.gz
-    
-    # Index VCF
-    tabix -p vcf ${prefix}.vcf.gz
-
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         delly: \$(delly 2>&1 | grep "Version:" | sed 's/^.*Version: //; s/).*\$//')
-        bcftools: \$(bcftools --version 2>&1 | head -n1 | sed 's/^.*bcftools //; s/ .*\$//')
     END_VERSIONS
     """
 }
