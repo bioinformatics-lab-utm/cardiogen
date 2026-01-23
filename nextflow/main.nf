@@ -33,6 +33,12 @@ include { MANTA_T2T_BOWTIE2 } from './modules/manta'
 include { MANTA_HG37_BWAMEM } from './modules/manta'
 include { MANTA_HG38_BWAMEM } from './modules/manta'
 include { MANTA_T2T_BWAMEM } from './modules/manta'
+include { DELLY_HG37_BOWTIE2 } from './modules/delly'
+include { DELLY_HG38_BOWTIE2 } from './modules/delly'
+include { DELLY_T2T_BOWTIE2 } from './modules/delly'
+include { DELLY_HG37_BWAMEM } from './modules/delly'
+include { DELLY_HG38_BWAMEM } from './modules/delly'
+include { DELLY_T2T_BWAMEM } from './modules/delly'
 
 // Parameters
 params.input_dir = "${projectDir}/test_data/ont_data"
@@ -262,6 +268,20 @@ workflow {
     MANTA_HG37_BWAMEM(bwamem_hg37_bams)
     MANTA_HG38_BWAMEM(bwamem_hg38_bams)
     MANTA_T2T_BWAMEM(bwamem_t2t_bams)
+
+    // ========================================
+    // VARIANT CALLING WITH DELLY
+    // ========================================
+
+    // Run Delly variant calling on Bowtie2 alignments
+    DELLY_HG37_BOWTIE2(bowtie2_hg37_bams)
+    DELLY_HG38_BOWTIE2(bowtie2_hg38_bams)
+    DELLY_T2T_BOWTIE2(bowtie2_t2t_bams)
+
+    // Run Delly variant calling on BWA-MEM alignments
+    DELLY_HG37_BWAMEM(bwamem_hg37_bams)
+    DELLY_HG38_BWAMEM(bwamem_hg38_bams)
+    DELLY_T2T_BWAMEM(bwamem_t2t_bams)
 }
 
 // Print completion message
