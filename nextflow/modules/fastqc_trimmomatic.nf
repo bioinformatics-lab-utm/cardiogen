@@ -2,7 +2,7 @@ process FASTQC_TRIMMOMATIC {
     tag "$meta.id"
     label 'process_medium'
 
-    publishDir "${params.outdir}/04_trimmomatic/fastqc", mode: 'copy'
+    publishDir "${params.outdir}/07_QC/trimmomatic", mode: 'copy'
 
     container 'staphb/fastqc:0.12.1'
 

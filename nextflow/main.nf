@@ -15,6 +15,10 @@ nextflow.enable.dsl = 2
 include { FASTP } from './modules/fastp'
 include { CUTADAPT } from './modules/cutadapt'
 include { TRIMMOMATIC } from './modules/trimmomatic'
+include { FASTQC } from './modules/fastqc'
+include { FASTQC_FASTP } from './modules/fastqc_fastp'
+include { FASTQC_CUTADAPT } from './modules/fastqc_cutadapt'
+include { FASTQC_TRIMMOMATIC } from './modules/fastqc_trimmomatic'
 include { BOWTIE2_ALIGN_HG37 } from './modules/bowtie2'
 include { BOWTIE2_ALIGN_HG38 } from './modules/bowtie2'
 include { BOWTIE2_ALIGN_T2T } from './modules/bowtie2'
@@ -23,10 +27,8 @@ include { BWAMEM_HG38 } from './modules/bwa'
 include { BWAMEM_T2T } from './modules/bwa'
 include { OCTOPUS_HG37_BOWTIE2 } from './modules/octopus'
 include { OCTOPUS_HG38_BOWTIE2 } from './modules/octopus'
-include { OCTOPUS_T2T_BOWTIE2 } from './modules/octopus'
 include { OCTOPUS_HG37_BWAMEM } from './modules/octopus'
 include { OCTOPUS_HG38_BWAMEM } from './modules/octopus'
-include { OCTOPUS_T2T_BWAMEM } from './modules/octopus'
 include { MANTA_HG37_BOWTIE2 } from './modules/manta'
 include { MANTA_HG38_BOWTIE2 } from './modules/manta'
 include { MANTA_T2T_BOWTIE2 } from './modules/manta'
@@ -43,7 +45,7 @@ include { DELLY_T2T_BWAMEM } from './modules/delly'
 // Parameters
 params.input_dir = "${projectDir}/test_data/ont_data"
 params.outdir = "${projectDir}/results"
-params.pattern = "*_{1,2}.fastq.gz"
+params.pattern = "D1_S1_L001_R{1,2}_005.fastq.gz"
 
 // Reference genome parameters
 params.hg37_index = "${projectDir}/reference/hg37"
@@ -107,6 +109,14 @@ workflow {
     FASTP(fastq_ch)
     CUTADAPT(fastq_ch)
     TRIMMOMATIC(fastq_ch)
+
+    // Run FastQC on raw data
+    FASTQC(fastq_ch)
+
+    // Run FastQC on processed data
+    FASTQC_FASTP(FASTP.out.reads)
+    FASTQC_CUTADAPT(CUTADAPT.out.reads)
+    FASTQC_TRIMMOMATIC(TRIMMOMATIC.out.paired_reads)
 
     // Prepare metadata for alignments with each genome
     
@@ -248,12 +258,10 @@ workflow {
     // Run Octopus variant calling on Bowtie2 alignments
     OCTOPUS_HG37_BOWTIE2(bowtie2_hg37_bams)
     OCTOPUS_HG38_BOWTIE2(bowtie2_hg38_bams)
-    OCTOPUS_T2T_BOWTIE2(bowtie2_t2t_bams)
 
     // Run Octopus variant calling on BWA-MEM alignments
     OCTOPUS_HG37_BWAMEM(bwamem_hg37_bams)
     OCTOPUS_HG38_BWAMEM(bwamem_hg38_bams)
-    OCTOPUS_T2T_BWAMEM(bwamem_t2t_bams)
 
     // ========================================
     // VARIANT CALLING WITH MANTA
@@ -337,35 +345,37 @@ workflow.onComplete {
         FASTP:
           - hg37: ${params.outdir}/06_variant_calling/octopus/bowtie2/fastp/hg37/
           - hg38: ${params.outdir}/06_variant_calling/octopus/bowtie2/fastp/hg38/
-          - T2T:  ${params.outdir}/06_variant_calling/octopus/bowtie2/fastp/t2t/
         
         CUTADAPT:
           - hg37: ${params.outdir}/06_variant_calling/octopus/bowtie2/cutadapt/hg37/
           - hg38: ${params.outdir}/06_variant_calling/octopus/bowtie2/cutadapt/hg38/
-          - T2T:  ${params.outdir}/06_variant_calling/octopus/bowtie2/cutadapt/t2t/
         
         TRIMMOMATIC:
           - hg37: ${params.outdir}/06_variant_calling/octopus/bowtie2/trimmomatic/hg37/
           - hg38: ${params.outdir}/06_variant_calling/octopus/bowtie2/trimmomatic/hg38/
-          - T2T:  ${params.outdir}/06_variant_calling/octopus/bowtie2/trimmomatic/t2t/
 
       BWA-MEM variant calls:
         FASTP:
           - hg37: ${params.outdir}/06_variant_calling/octopus/bwamem/fastp/hg37/
           - hg38: ${params.outdir}/06_variant_calling/octopus/bwamem/fastp/hg38/
-          - T2T:  ${params.outdir}/06_variant_calling/octopus/bwamem/fastp/t2t/
         
         CUTADAPT:
           - hg37: ${params.outdir}/06_variant_calling/octopus/bwamem/cutadapt/hg37/
           - hg38: ${params.outdir}/06_variant_calling/octopus/bwamem/cutadapt/hg38/
-          - T2T:  ${params.outdir}/06_variant_calling/octopus/bwamem/cutadapt/t2t/
         
         TRIMMOMATIC:
           - hg37: ${params.outdir}/06_variant_calling/octopus/bwamem/trimmomatic/hg37/
           - hg38: ${params.outdir}/06_variant_calling/octopus/bwamem/trimmomatic/hg38/
-          - T2T:  ${params.outdir}/06_variant_calling/octopus/bwamem/trimmomatic/t2t/
 
-    TOTAL OUTPUT FILES: 30 (3 preprocessing + 9 bowtie2 + 9 bwamem + 9 octopus/bowtie2 + 9 octopus/bwamem)
+    VARIANT CALLING - MANTA (2 aligners × 3 QC × 3 genomes = 18 combinations):
+      Output directories similar to Octopus under:
+        ${params.outdir}/06_variant_calling/manta/
+
+    VARIANT CALLING - DELLY (2 aligners × 3 QC × 3 genomes = 18 combinations):
+      Output directories similar to Octopus under:
+        ${params.outdir}/06_variant_calling/delly/
+
+    TOTAL OUTPUT FILES: 84 (3 preprocessing + 9 bowtie2 + 9 bwamem + 18 octopus + 18 manta + 18 delly + 9 QC)
     ================================================================
     """.stripIndent()
 }

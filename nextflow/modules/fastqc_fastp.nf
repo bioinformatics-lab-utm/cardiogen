@@ -2,7 +2,7 @@ process FASTQC_FASTP {
     tag "$meta.id"
     label 'process_medium'
 
-    publishDir "${params.outdir}/02_fastp/fastqc", mode: 'copy'
+    publishDir "${params.outdir}/07_QC/fastp", mode: 'copy'
 
     container 'staphb/fastqc:0.12.1'
 

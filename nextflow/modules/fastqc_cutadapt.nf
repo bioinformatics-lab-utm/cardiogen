@@ -2,7 +2,7 @@ process FASTQC_CUTADAPT {
     tag "$meta.id"
     label 'process_medium'
 
-    publishDir "${params.outdir}/03_cutadapt/fastqc", mode: 'copy'
+    publishDir "${params.outdir}/07_QC/cutadapt", mode: 'copy'
 
     container 'staphb/fastqc:0.12.1'
 
