@@ -41,6 +41,18 @@ include { DELLY_T2T_BOWTIE2 } from './modules/delly'
 include { DELLY_HG37_BWAMEM } from './modules/delly'
 include { DELLY_HG38_BWAMEM } from './modules/delly'
 include { DELLY_T2T_BWAMEM } from './modules/delly'
+include { DEEPVARIANT_HG37_BOWTIE2 } from './modules/deepvariant'
+include { DEEPVARIANT_HG38_BOWTIE2 } from './modules/deepvariant'
+include { DEEPVARIANT_T2T_BOWTIE2 } from './modules/deepvariant'
+include { DEEPVARIANT_HG37_BWAMEM } from './modules/deepvariant'
+include { DEEPVARIANT_HG38_BWAMEM } from './modules/deepvariant'
+include { DEEPVARIANT_T2T_BWAMEM } from './modules/deepvariant'
+include { GATK_HAPLOTYPECALLER_HG37_BOWTIE2 } from './modules/gatk'
+include { GATK_HAPLOTYPECALLER_HG38_BOWTIE2 } from './modules/gatk'
+include { GATK_HAPLOTYPECALLER_T2T_BOWTIE2 } from './modules/gatk'
+include { GATK_HAPLOTYPECALLER_HG37_BWAMEM } from './modules/gatk'
+include { GATK_HAPLOTYPECALLER_HG38_BWAMEM } from './modules/gatk'
+include { GATK_HAPLOTYPECALLER_T2T_BWAMEM } from './modules/gatk'
 
 // Parameters
 params.input_dir = "${projectDir}/test_data/ont_data"
@@ -290,6 +302,34 @@ workflow {
     DELLY_HG37_BWAMEM(bwamem_hg37_bams)
     DELLY_HG38_BWAMEM(bwamem_hg38_bams)
     DELLY_T2T_BWAMEM(bwamem_t2t_bams)
+
+    // ========================================
+    // VARIANT CALLING WITH DEEPVARIANT
+    // ========================================
+
+    // Run DeepVariant variant calling on Bowtie2 alignments
+    DEEPVARIANT_HG37_BOWTIE2(bowtie2_hg37_bams)
+    DEEPVARIANT_HG38_BOWTIE2(bowtie2_hg38_bams)
+    DEEPVARIANT_T2T_BOWTIE2(bowtie2_t2t_bams)
+
+    // Run DeepVariant variant calling on BWA-MEM alignments
+    DEEPVARIANT_HG37_BWAMEM(bwamem_hg37_bams)
+    DEEPVARIANT_HG38_BWAMEM(bwamem_hg38_bams)
+    DEEPVARIANT_T2T_BWAMEM(bwamem_t2t_bams)
+
+    // ========================================
+    // VARIANT CALLING WITH GATK HAPLOTYPECALLER
+    // ========================================
+
+    // Run GATK HaplotypeCaller variant calling on Bowtie2 alignments
+    GATK_HAPLOTYPECALLER_HG37_BOWTIE2(bowtie2_hg37_bams)
+    GATK_HAPLOTYPECALLER_HG38_BOWTIE2(bowtie2_hg38_bams)
+    GATK_HAPLOTYPECALLER_T2T_BOWTIE2(bowtie2_t2t_bams)
+
+    // Run GATK HaplotypeCaller variant calling on BWA-MEM alignments
+    GATK_HAPLOTYPECALLER_HG37_BWAMEM(bwamem_hg37_bams)
+    GATK_HAPLOTYPECALLER_HG38_BWAMEM(bwamem_hg38_bams)
+    GATK_HAPLOTYPECALLER_T2T_BWAMEM(bwamem_t2t_bams)
 }
 
 // Print completion message
@@ -375,7 +415,15 @@ workflow.onComplete {
       Output directories similar to Octopus under:
         ${params.outdir}/06_variant_calling/delly/
 
-    TOTAL OUTPUT FILES: 84 (3 preprocessing + 9 bowtie2 + 9 bwamem + 18 octopus + 18 manta + 18 delly + 9 QC)
+    VARIANT CALLING - DEEPVARIANT (2 aligners × 3 QC × 3 genomes = 18 combinations):
+      Output directories similar to Octopus under:
+        ${params.outdir}/06_variant_calling/deepvariant/
+
+    VARIANT CALLING - GATK HAPLOTYPECALLER (2 aligners × 3 QC × 3 genomes = 18 combinations):
+      Output directories similar to Octopus under:
+        ${params.outdir}/06_variant_calling/gatk/
+
+    TOTAL OUTPUT FILES: 120 (3 preprocessing + 9 bowtie2 + 9 bwamem + 18 octopus + 18 manta + 18 delly + 18 deepvariant + 18 gatk + 9 QC)
     ================================================================
     """.stripIndent()
 }
