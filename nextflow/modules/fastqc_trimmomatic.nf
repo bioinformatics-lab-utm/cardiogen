@@ -2,7 +2,7 @@ process FASTQC_TRIMMOMATIC {
     tag "$meta.id"
     label 'process_medium'
 
-    publishDir "${params.outdir}/07_QC/trimmomatic", mode: 'copy'
+    publishDir "${params.outdir}/02_QC/trimmomatic", mode: 'copy'
 
     container 'staphb/fastqc:0.12.1'
 
@@ -28,6 +28,11 @@ process FASTQC_TRIMMOMATIC {
             --threads $task.cpus \\
             ${reads[0]}
 
+        # Unzip all FastQC output files to access plots
+        for zip_file in *_fastqc.zip; do
+            unzip -q "\$zip_file"
+        done
+
         cat <<-END_VERSIONS > versions.yml
         "${task.process}":
             fastqc: \$( fastqc --version | sed '/FastQC v/!d; s/.*v\\([0-9\\.]*\\).*/\\1/' )
@@ -40,6 +45,11 @@ process FASTQC_TRIMMOMATIC {
             --threads $task.cpus \\
             ${reads[0]} \\
             ${reads[1]}
+
+        # Unzip all FastQC output files to access plots
+        for zip_file in *_fastqc.zip; do
+            unzip -q "\$zip_file"
+        done
 
         cat <<-END_VERSIONS > versions.yml
         "${task.process}":

@@ -2,7 +2,7 @@ process OCTOPUS_HG37_BOWTIE2 {
     tag "$meta.id - $meta.qc_tool - hg37 - bowtie2"
     label 'process_high'
 
-    publishDir "${params.outdir}/06_variant_calling/octopus/bowtie2/${meta.qc_tool}/hg37", mode: 'copy'
+    publishDir "${params.outdir}/04_variant_calling/octopus/bowtie2/${meta.qc_tool}/hg37", mode: 'copy'
 
     container 'dancooke/octopus:latest'
 
@@ -39,7 +39,7 @@ process OCTOPUS_HG38_BOWTIE2 {
     tag "$meta.id - $meta.qc_tool - hg38 - bowtie2"
     label 'process_high'
 
-    publishDir "${params.outdir}/06_variant_calling/octopus/bowtie2/${meta.qc_tool}/hg38", mode: 'copy'
+    publishDir "${params.outdir}/04_variant_calling/octopus/bowtie2/${meta.qc_tool}/hg38", mode: 'copy'
 
     container 'dancooke/octopus:latest'
 
@@ -76,7 +76,7 @@ process OCTOPUS_HG37_BWAMEM {
     tag "$meta.id - $meta.qc_tool - hg37 - bwamem"
     label 'process_high'
 
-    publishDir "${params.outdir}/06_variant_calling/octopus/bwamem/${meta.qc_tool}/hg37", mode: 'copy'
+    publishDir "${params.outdir}/04_variant_calling/octopus/bwamem/${meta.qc_tool}/hg37", mode: 'copy'
 
     container 'dancooke/octopus:latest'
 
@@ -113,7 +113,7 @@ process OCTOPUS_HG38_BWAMEM {
     tag "$meta.id - $meta.qc_tool - hg38 - bwamem"
     label 'process_high'
 
-    publishDir "${params.outdir}/06_variant_calling/octopus/bwamem/${meta.qc_tool}/hg38", mode: 'copy'
+    publishDir "${params.outdir}/04_variant_calling/octopus/bwamem/${meta.qc_tool}/hg38", mode: 'copy'
 
     container 'dancooke/octopus:latest'
 

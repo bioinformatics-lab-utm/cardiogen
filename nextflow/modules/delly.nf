@@ -2,7 +2,7 @@ process DELLY_HG37_BOWTIE2 {
     tag "$meta.id - $meta.qc_tool - hg37 - bowtie2"
     label 'process_high'
 
-    publishDir "${params.outdir}/06_variant_calling/delly/bowtie2/${meta.qc_tool}/hg37", mode: 'copy'
+    publishDir "${params.outdir}/04_variant_calling/delly/bowtie2/${meta.qc_tool}/hg37", mode: 'copy'
 
     container 'dellytools/delly:latest'
 
@@ -40,7 +40,7 @@ process DELLY_HG38_BOWTIE2 {
     tag "$meta.id - $meta.qc_tool - hg38 - bowtie2"
     label 'process_high'
 
-    publishDir "${params.outdir}/06_variant_calling/delly/bowtie2/${meta.qc_tool}/hg38", mode: 'copy'
+    publishDir "${params.outdir}/04_variant_calling/delly/bowtie2/${meta.qc_tool}/hg38", mode: 'copy'
 
     container 'dellytools/delly:latest'
 
@@ -78,7 +78,7 @@ process DELLY_T2T_BOWTIE2 {
     tag "$meta.id - $meta.qc_tool - t2t - bowtie2"
     label 'process_high'
 
-    publishDir "${params.outdir}/06_variant_calling/delly/bowtie2/${meta.qc_tool}/t2t", mode: 'copy'
+    publishDir "${params.outdir}/04_variant_calling/delly/bowtie2/${meta.qc_tool}/t2t", mode: 'copy'
 
     container 'dellytools/delly:latest'
 
@@ -116,7 +116,7 @@ process DELLY_HG37_BWAMEM {
     tag "$meta.id - $meta.qc_tool - hg37 - bwamem"
     label 'process_high'
 
-    publishDir "${params.outdir}/06_variant_calling/delly/bwamem/${meta.qc_tool}/hg37", mode: 'copy'
+    publishDir "${params.outdir}/04_variant_calling/delly/bwamem/${meta.qc_tool}/hg37", mode: 'copy'
 
     container 'dellytools/delly:latest'
 
@@ -154,7 +154,7 @@ process DELLY_HG38_BWAMEM {
     tag "$meta.id - $meta.qc_tool - hg38 - bwamem"
     label 'process_high'
 
-    publishDir "${params.outdir}/06_variant_calling/delly/bwamem/${meta.qc_tool}/hg38", mode: 'copy'
+    publishDir "${params.outdir}/04_variant_calling/delly/bwamem/${meta.qc_tool}/hg38", mode: 'copy'
 
     container 'dellytools/delly:latest'
 
@@ -192,7 +192,7 @@ process DELLY_T2T_BWAMEM {
     tag "$meta.id - $meta.qc_tool - t2t - bwamem"
     label 'process_high'
 
-    publishDir "${params.outdir}/06_variant_calling/delly/bwamem/${meta.qc_tool}/t2t", mode: 'copy'
+    publishDir "${params.outdir}/04_variant_calling/delly/bwamem/${meta.qc_tool}/t2t", mode: 'copy'
 
     container 'dellytools/delly:latest'
 

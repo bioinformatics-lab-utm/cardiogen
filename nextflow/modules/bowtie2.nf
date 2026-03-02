@@ -23,6 +23,9 @@ process BOWTIE2_ALIGN_HG37 {
     def prefix = "${meta.id}_${meta.qc_tool}_hg37"
     def index_path = workflow.containerEngine ? "/reference/hg37/hg19" : "${params.hg37_index}/hg19"
     def reference = workflow.containerEngine ? "/reference/hg37/hg19.fa" : "${params.hg37_index}/hg19.fa"
+    // Use fewer threads for samtools to give more memory per thread
+    def samtools_threads = Math.min(32, task.cpus as int)
+    def sort_mem_mb = Math.max(768, (task.memory.toMega() * 0.55 / samtools_threads).intValue())
     """
     # Check if Bowtie2 index exists, if not create it
     if [ ! -f "${index_path}.1.bt2" ]; then
@@ -42,10 +45,10 @@ process BOWTIE2_ALIGN_HG37 {
         --threads $task.cpus \\
         $args \\
         2> ${prefix}_bowtie2.log \\
-        | samtools view -@ $task.cpus -bS - \\
-        | samtools sort -@ $task.cpus -o ${prefix}.bam -
+        | samtools view -@ ${samtools_threads} -bS - \\
+        | samtools sort -@ ${samtools_threads} -m ${sort_mem_mb}M -o ${prefix}.bam -
 
-    samtools index -@ $task.cpus ${prefix}.bam
+    samtools index -@ ${samtools_threads} ${prefix}.bam
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -80,6 +83,9 @@ process BOWTIE2_ALIGN_HG38 {
     def prefix = "${meta.id}_${meta.qc_tool}_hg38"
     def index_path = workflow.containerEngine ? "/reference/hg38/hg38" : "${params.hg38_index}/hg38"
     def reference = workflow.containerEngine ? "/reference/hg38/hg38.fa" : "${params.hg38_index}/hg38.fa"
+    // Use fewer threads for samtools to give more memory per thread
+    def samtools_threads = Math.min(32, task.cpus as int)
+    def sort_mem_mb = Math.max(768, (task.memory.toMega() * 0.55 / samtools_threads).intValue())
     """
     # Check if Bowtie2 index exists, if not create it
     if [ ! -f "${index_path}.1.bt2" ]; then
@@ -99,10 +105,10 @@ process BOWTIE2_ALIGN_HG38 {
         --threads $task.cpus \\
         $args \\
         2> ${prefix}_bowtie2.log \\
-        | samtools view -@ $task.cpus -bS - \\
-        | samtools sort -@ $task.cpus -o ${prefix}.bam -
+        | samtools view -@ ${samtools_threads} -bS - \\
+        | samtools sort -@ ${samtools_threads} -m ${sort_mem_mb}M -o ${prefix}.bam -
 
-    samtools index -@ $task.cpus ${prefix}.bam
+    samtools index -@ ${samtools_threads} ${prefix}.bam
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -137,6 +143,9 @@ process BOWTIE2_ALIGN_T2T {
     def prefix = "${meta.id}_${meta.qc_tool}_t2t"
     def index_path = workflow.containerEngine ? "/reference/t2t/hs1" : "${params.t2t_index}/hs1"
     def reference = workflow.containerEngine ? "/reference/t2t/hs1.fa" : "${params.t2t_index}/hs1.fa"
+    // Use fewer threads for samtools to give more memory per thread
+    def samtools_threads = Math.min(32, task.cpus as int)
+    def sort_mem_mb = Math.max(768, (task.memory.toMega() * 0.55 / samtools_threads).intValue())
     """
     # Check if Bowtie2 index exists, if not create it
     if [ ! -f "${index_path}.1.bt2" ]; then
@@ -156,10 +165,10 @@ process BOWTIE2_ALIGN_T2T {
         --threads $task.cpus \\
         $args \\
         2> ${prefix}_bowtie2.log \\
-        | samtools view -@ $task.cpus -bS - \\
-        | samtools sort -@ $task.cpus -o ${prefix}.bam -
+        | samtools view -@ ${samtools_threads} -bS - \\
+        | samtools sort -@ ${samtools_threads} -m ${sort_mem_mb}M -o ${prefix}.bam -
 
-    samtools index -@ $task.cpus ${prefix}.bam
+    samtools index -@ ${samtools_threads} ${prefix}.bam
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

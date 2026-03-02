@@ -1,26 +1,25 @@
 process FASTP {
     tag "$meta.id"
     label 'process_medium'
-
     publishDir "${params.outdir}/01_fastp", mode: 'copy'
-
     container 'staphb/fastp:0.23.4'
-
+    
     input:
     tuple val(meta), path(reads)
-
+    
     output:
     tuple val(meta), path("*_fastp_{1,2}.fastq.gz"), emit: reads
     tuple val(meta), path("*.json"),                 emit: json
     tuple val(meta), path("*.html"),                 emit: html
     path "versions.yml",                             emit: versions
-
+    
     when:
     task.ext.when == null || task.ext.when
-
+    
     script:
     def args = task.ext.args ?: ''
     def prefix = task.ext.prefix ?: "${meta.id}"
+    
     if (meta.single_end) {
         """
         fastp \\
@@ -30,10 +29,10 @@ process FASTP {
             --json ${prefix}_fastp.json \\
             --html ${prefix}_fastp.html \\
             $args
-
+        
         cat <<-END_VERSIONS > versions.yml
         "${task.process}":
-            fastp: \$(fastp --version 2>&1 | sed -e "s/fastp //g")
+            fastp: \$(fastp --version 2>&1 | head -n1 | sed -e "s/fastp //g")
         END_VERSIONS
         """
     } else {
@@ -47,10 +46,10 @@ process FASTP {
             --json ${prefix}_fastp.json \\
             --html ${prefix}_fastp.html \\
             $args
-
+        
         cat <<-END_VERSIONS > versions.yml
         "${task.process}":
-            fastp: \$(fastp --version 2>&1 | sed -e "s/fastp //g")
+            fastp: \$(fastp --version 2>&1 | head -n1 | sed -e "s/fastp //g")
         END_VERSIONS
         """
     }
