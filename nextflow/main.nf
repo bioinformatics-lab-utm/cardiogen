@@ -20,7 +20,7 @@ include { FASTQC_FASTP } from './modules/fastqc_fastp'
 // include { FASTQC_CUTADAPT } from './modules/fastqc_cutadapt'
 // include { FASTQC_TRIMMOMATIC } from './modules/fastqc_trimmomatic'
 // include { BOWTIE2_ALIGN_HG37 } from './modules/bowtie2'
-include { BOWTIE2_ALIGN_HG38 } from './modules/bowtie2'
+// include { BOWTIE2_ALIGN_HG38 } from './modules/bowtie2'
 // include { BOWTIE2_ALIGN_T2T } from './modules/bowtie2'
 // include { BWAMEM_HG37 } from './modules/bwa'
 include { BWAMEM_HG38 } from './modules/bwa'
@@ -30,31 +30,36 @@ include { BWAMEM_HG38 } from './modules/bwa'
 // include { OCTOPUS_HG37_BWAMEM } from './modules/octopus'
 // include { OCTOPUS_HG38_BWAMEM } from './modules/octopus'
 // include { MANTA_HG37_BOWTIE2 } from './modules/manta'
-include { MANTA_HG38_BOWTIE2 } from './modules/manta'
+// include { MANTA_HG38_BOWTIE2 } from './modules/manta'
 // include { MANTA_T2T_BOWTIE2 } from './modules/manta'
 // include { MANTA_HG37_BWAMEM } from './modules/manta'
 include { MANTA_HG38_BWAMEM } from './modules/manta'
 // include { MANTA_T2T_BWAMEM } from './modules/manta'
 // include { DELLY_HG37_BOWTIE2 } from './modules/delly'
-include { DELLY_HG38_BOWTIE2 } from './modules/delly'
+// include { DELLY_HG38_BOWTIE2 } from './modules/delly'
 // include { DELLY_T2T_BOWTIE2 } from './modules/delly'
 // include { DELLY_HG37_BWAMEM } from './modules/delly'
 include { DELLY_HG38_BWAMEM } from './modules/delly'
 // include { DELLY_T2T_BWAMEM } from './modules/delly'
 // include { DEEPVARIANT_HG37_BOWTIE2 } from './modules/deepvariant'
-include { DEEPVARIANT_HG38_BOWTIE2 } from './modules/deepvariant'
+// include { DEEPVARIANT_HG38_BOWTIE2 } from './modules/deepvariant'
 // include { DEEPVARIANT_T2T_BOWTIE2 } from './modules/deepvariant'
 // include { DEEPVARIANT_HG37_BWAMEM } from './modules/deepvariant'
 include { DEEPVARIANT_HG38_BWAMEM } from './modules/deepvariant'
 // include { DEEPVARIANT_T2T_BWAMEM } from './modules/deepvariant'
 // include { GATK_HAPLOTYPECALLER_HG37_BOWTIE2 } from './modules/gatk'
-include { GATK_HAPLOTYPECALLER_HG38_BOWTIE2 } from './modules/gatk'
+// include { GATK_HAPLOTYPECALLER_HG38_BOWTIE2 } from './modules/gatk'
 // include { GATK_HAPLOTYPECALLER_T2T_BOWTIE2 } from './modules/gatk'
 // include { GATK_HAPLOTYPECALLER_HG37_BWAMEM } from './modules/gatk'
 include { GATK_HAPLOTYPECALLER_HG38_BWAMEM } from './modules/gatk'
 // include { GATK_HAPLOTYPECALLER_T2T_BWAMEM } from './modules/gatk'
-include { HAPPY_COMPARE } from './modules/happy'
-include { HAPPY_COMPARE as HAPPY_COMPARE_COMBINED } from './modules/happy'
+// include { HAPPY_COMPARE } from './modules/happy'
+// include { HAPPY_COMPARE as HAPPY_COMPARE_COMBINED } from './modules/happy'
+// include { TRUVARI_COMPARE } from './modules/truvari'
+// include { TRUVARI_COMPARE as TRUVARI_COMPARE_COMBINED } from './modules/truvari'
+// include { BCF_TO_VCFGZ } from './modules/tabix'  // Not needed - Delly not benchmarked with Happy
+// include { COMBINE_SNP_INDEL } from './modules/combine_callers'
+// include { COMBINE_SV } from './modules/combine_callers'
 // include { TABIX_INDEX as TABIX_OCTOPUS_HG38_BOWTIE2 } from './modules/tabix'
 // include { TABIX_INDEX as TABIX_OCTOPUS_HG38_BWAMEM } from './modules/tabix'
 
@@ -83,7 +88,7 @@ def helpMessage() {
     --outdir          Output directory for results (default: ${params.outdir})
     --pattern         File pattern to match FASTQ files (default: ${params.pattern})
     // --hg37_index      Path to hg37 bowtie2 index directory (default: ${params.hg37_index})
-    --hg38_index      Path to hg38 bowtie2 index directory (default: ${params.hg38_index})
+    --hg38_index      Path to hg38 bwa index directory (default: ${params.hg38_index})
     // --t2t_index       Path to T2T bowtie2 index directory (default: ${params.t2t_index})
     --help            Show this help message
     
@@ -209,7 +214,7 @@ workflow {
 
     // Run Bowtie2 alignments
     // BOWTIE2_ALIGN_HG37(hg37_inputs)
-    BOWTIE2_ALIGN_HG38(hg38_inputs)
+    // BOWTIE2_ALIGN_HG38(hg38_inputs)
     // BOWTIE2_ALIGN_T2T(t2t_inputs)
 
     // Run BWA-MEM alignments
@@ -230,13 +235,13 @@ workflow {
     //         [new_meta, bam, bai]
     //     }
 
-    bowtie2_hg38_bams = BOWTIE2_ALIGN_HG38.out.bam
-        .join(BOWTIE2_ALIGN_HG38.out.bai)
-        .map { meta, bam, bai ->
-            def new_meta = meta.clone()
-            new_meta.aligner = "bowtie2"
-            [new_meta, bam, bai]
-        }
+    // bowtie2_hg38_bams = BOWTIE2_ALIGN_HG38.out.bam
+    //     .join(BOWTIE2_ALIGN_HG38.out.bai)
+    //     .map { meta, bam, bai ->
+    //         def new_meta = meta.clone()
+    //         new_meta.aligner = "bowtie2"
+    //         [new_meta, bam, bai]
+    //     }
 
     // bowtie2_t2t_bams = BOWTIE2_ALIGN_T2T.out.bam
     //     .join(BOWTIE2_ALIGN_T2T.out.bai)
@@ -285,7 +290,7 @@ workflow {
 
     // Run Manta variant calling on Bowtie2 alignments
     // MANTA_HG37_BOWTIE2(bowtie2_hg37_bams)
-    MANTA_HG38_BOWTIE2(bowtie2_hg38_bams)
+    // MANTA_HG38_BOWTIE2(bowtie2_hg38_bams)
     // MANTA_T2T_BOWTIE2(bowtie2_t2t_bams)
 
     // Run Manta variant calling on BWA-MEM alignments
@@ -299,7 +304,7 @@ workflow {
 
     // Run Delly variant calling on Bowtie2 alignments
     // DELLY_HG37_BOWTIE2(bowtie2_hg37_bams)
-    DELLY_HG38_BOWTIE2(bowtie2_hg38_bams)
+    // DELLY_HG38_BOWTIE2(bowtie2_hg38_bams)
     // DELLY_T2T_BOWTIE2(bowtie2_t2t_bams)
 
     // Run Delly variant calling on BWA-MEM alignments
@@ -313,7 +318,7 @@ workflow {
 
     // Run DeepVariant variant calling on Bowtie2 alignments
     // DEEPVARIANT_HG37_BOWTIE2(bowtie2_hg37_bams)
-    DEEPVARIANT_HG38_BOWTIE2(bowtie2_hg38_bams)
+    // DEEPVARIANT_HG38_BOWTIE2(bowtie2_hg38_bams)
     // DEEPVARIANT_T2T_BOWTIE2(bowtie2_t2t_bams)
 
     // Run DeepVariant variant calling on BWA-MEM alignments
@@ -327,7 +332,7 @@ workflow {
 
     // Run GATK HaplotypeCaller variant calling on Bowtie2 alignments
     // GATK_HAPLOTYPECALLER_HG37_BOWTIE2(bowtie2_hg37_bams)
-    GATK_HAPLOTYPECALLER_HG38_BOWTIE2(bowtie2_hg38_bams)
+    // GATK_HAPLOTYPECALLER_HG38_BOWTIE2(bowtie2_hg38_bams)
     // GATK_HAPLOTYPECALLER_T2T_BOWTIE2(bowtie2_t2t_bams)
 
     // Run GATK HaplotypeCaller variant calling on BWA-MEM alignments
@@ -336,31 +341,162 @@ workflow {
     // GATK_HAPLOTYPECALLER_T2T_BWAMEM(bwamem_t2t_bams)
 
     // ========================================
-    // BENCHMARKING WITH hap.py (HG38 only)
+    // COMBINE VARIANT CALLERS - COMMENTED OUT
     // ========================================
 
-    // Load truth VCF file and reference for HG38
-    def truth_hg38_vcf = file(params.truth_hg38_vcf)
-    def truth_hg38_vcf_idx = file("${params.truth_hg38_vcf}.tbi")
-    def truth_hg38_bed = file(params.truth_hg38_bed)
-    def hg38_ref = file("${params.hg38_index}/hg38.fa")
-    def hg38_ref_fai = file("${params.hg38_index}/hg38.fa.fai")
+    // Combine GATK + DeepVariant for SNP/INDEL (HG38, FASTP, BWAMEM) - COMMENTED OUT
+    // combined_snpindel_hg38_bwamem_fastp = GATK_HAPLOTYPECALLER_HG38_BWAMEM.out.vcf
+    //     .join(GATK_HAPLOTYPECALLER_HG38_BWAMEM.out.tbi)
+    //     .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' }
+    //     .join(
+    //         DEEPVARIANT_HG38_BWAMEM.out.vcf
+    //             .join(DEEPVARIANT_HG38_BWAMEM.out.tbi)
+    //             .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' },
+    //         by: 0
+    //     )
+    //     .map { meta, gatk_vcf, gatk_idx, dv_vcf, dv_idx ->
+    //         [meta.id, meta.aligner, meta.qc_tool, 'hg38', gatk_vcf, gatk_idx, dv_vcf, dv_idx]
+    //     }
 
-    // Index Octopus VCFs (they don't output .tbi)
+    // Combine GATK + DeepVariant for SNP/INDEL (HG37, FASTP, BOWTIE2) - COMMENTED OUT
+    // combined_snpindel_hg37_bowtie2_fastp = GATK_HAPLOTYPECALLER_HG37_BOWTIE2.out.vcf
+    //     .join(GATK_HAPLOTYPECALLER_HG37_BOWTIE2.out.tbi)
+    //     .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' }
+    //     .join(
+    //         DEEPVARIANT_HG37_BOWTIE2.out.vcf
+    //             .join(DEEPVARIANT_HG37_BOWTIE2.out.tbi)
+    //             .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' },
+    //         by: 0
+    //     )
+    //     .map { meta, gatk_vcf, gatk_idx, dv_vcf, dv_idx ->
+    //         [meta.id, meta.aligner, meta.qc_tool, 'hg37', gatk_vcf, gatk_idx, dv_vcf, dv_idx]
+    //     }
+
+    // Run COMBINE_SNP_INDEL process - COMMENTED OUT
+    // COMBINE_SNP_INDEL(
+    //     combined_snpindel_hg38_bwamem_fastp // .mix(combined_snpindel_hg37_bowtie2_fastp)
+    // )
+
+    // Combine DELLY + MANTA for SV (HG38, FASTP, BWAMEM) - COMMENTED OUT
+    // combined_sv_hg38_bwamem_fastp = DELLY_HG38_BWAMEM.out.vcf
+    //     .join(DELLY_HG38_BWAMEM.out.tbi)
+    //     .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' }
+    //     .join(
+    //         MANTA_HG38_BWAMEM.out.vcf
+    //             .join(MANTA_HG38_BWAMEM.out.tbi)
+    //             .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' },
+    //         by: 0
+    //     )
+    //     .map { meta, delly_vcf, delly_idx, manta_vcf, manta_idx ->
+    //         [meta.id, meta.aligner, meta.qc_tool, 'hg38', delly_vcf, delly_idx, manta_vcf, manta_idx]
+    //     }
+
+    // Combine DELLY + MANTA for SV (HG37, FASTP, BOWTIE2) - COMMENTED OUT
+    // combined_sv_hg37_bowtie2_fastp = DELLY_HG37_BOWTIE2.out.vcf
+    //     .join(DELLY_HG37_BOWTIE2.out.tbi)
+    //     .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' }
+    //     .join(
+    //         MANTA_HG37_BOWTIE2.out.vcf
+    //             .join(MANTA_HG37_BOWTIE2.out.tbi)
+    //             .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' },
+    //         by: 0
+    //     )
+    //     .map { meta, delly_vcf, delly_idx, manta_vcf, manta_idx ->
+    //         [meta.id, meta.aligner, meta.qc_tool, 'hg37', delly_vcf, delly_idx, manta_vcf, manta_idx]
+    //     }
+
+    // Run COMBINE_SV process - COMMENTED OUT
+    // COMBINE_SV(
+    //     combined_sv_hg38_bwamem_fastp // .mix(combined_sv_hg37_bowtie2_fastp)
+    // )
+
+    // ========================================
+    // BENCHMARKING WITH hap.py (HG38) - COMMENTED OUT
+    // ========================================
+
+    // Load truth VCF file and reference for HG37 - COMMENTED OUT
+    // def truth_hg37_vcf = file(params.truth_hg37_vcf)
+    // def truth_hg37_vcf_idx = file("${params.truth_hg37_vcf}.tbi")
+    // def truth_hg37_bed = file(params.truth_hg37_bed)
+    // def hg37_ref = file("${params.hg37_index}/hg19.fa")
+    // def hg37_ref_fai = file("${params.hg37_index}/hg19.fa.fai")
+
+    // Load truth VCF file and reference for HG38 - COMMENTED OUT
+    // def truth_hg38_vcf = file(params.truth_hg38_vcf)
+    // def truth_hg38_vcf_idx = file("${params.truth_hg38_vcf}.tbi")
+    // def truth_hg38_bed = file(params.truth_hg38_bed)
+    // def hg38_ref = file("${params.hg38_index}/hg38.fa")
+    // def hg38_ref_fai = file("${params.hg38_index}/hg38.fa.fai")
+
+    // Index Octopus VCFs (they don't output .tbi) - COMMENTED OUT
+    // TABIX_OCTOPUS_HG37_BOWTIE2(OCTOPUS_HG37_BOWTIE2.out.vcf)
+    // TABIX_OCTOPUS_HG37_BWAMEM(OCTOPUS_HG37_BWAMEM.out.vcf)
+
+    // Prepare variant channels for HG38 with QC information - COMMENTED OUT
+    // DeepVariant HG38
+    // deepvariant_hg38_bwamem_fastp = DEEPVARIANT_HG38_BWAMEM.out.vcf
+    //     .join(DEEPVARIANT_HG38_BWAMEM.out.tbi)
+    //     .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' }
+    //     .map { meta, vcf, idx -> [meta.id, "deepvariant", "bwamem", "fastp", "hg38", vcf, idx] }
+    
+    // deepvariant_hg38_bowtie2_fastp = DEEPVARIANT_HG38_BOWTIE2.out.vcf
+    //     .join(DEEPVARIANT_HG38_BOWTIE2.out.tbi)
+    //     .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' }
+    //     .map { meta, vcf, idx -> [meta.id, "deepvariant", "bowtie2", "fastp", "hg38", vcf, idx] }
+
+    // GATK HG38
+    // gatk_hg38_bwamem_fastp = GATK_HAPLOTYPECALLER_HG38_BWAMEM.out.vcf
+    //     .join(GATK_HAPLOTYPECALLER_HG38_BWAMEM.out.tbi)
+    //     .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' }
+    //     .map { meta, vcf, idx -> [meta.id, "gatk", "bwamem", "fastp", "hg38", vcf, idx] }
+    
+    // gatk_hg38_bowtie2_fastp = GATK_HAPLOTYPECALLER_HG38_BOWTIE2.out.vcf
+    //     .join(GATK_HAPLOTYPECALLER_HG38_BOWTIE2.out.tbi)
+    //     .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' }
+    //     .map { meta, vcf, idx -> [meta.id, "gatk", "bowtie2", "fastp", "hg38", vcf, idx] }
+
+    // Prepare combined SNP/INDEL variants for Happy benchmarking (1 comparison: 1 aligner) - COMMENTED OUT
+    // Using combined GATK+DeepVariant callsets
+    // combined_snpindel_for_happy = COMBINE_SNP_INDEL.out.combined_vcf
+    //     .map { sample_id, aligner, qc, reference, vcf, idx ->
+    //         [sample_id, "combined_gatk_deepvariant", aligner, qc, reference, vcf, idx]
+    //     }
+
+    // Combine individual callers + combined callset for Happy benchmarking - COMMENTED OUT
+    // Total: 3 comparisons (2 individual + 1 combined)
+    // all_hg38_variants = deepvariant_hg38_bwamem_fastp.mix(
+    //     // deepvariant_hg38_bowtie2_fastp,
+    //     // gatk_hg38_bowtie2_fastp,
+    //     gatk_hg38_bwamem_fastp,
+    //     combined_snpindel_for_happy
+    // )
+
+    // Run hap.py comparison on individual AND combined SNP/INDEL callsets - COMMENTED OUT
+    // 3 comparisons: DeepVariant (1), GATK (1), Combined GATK+DeepVariant (1)
+    // HAPPY_COMPARE(
+    //     all_hg38_variants,
+    //     truth_hg38_vcf,
+    //     truth_hg38_vcf_idx,
+    //     truth_hg38_bed,
+    //     hg38_ref,
+    //     hg38_ref_fai
+    // )
+
+    // Index Octopus VCFs (they don't output .tbi) - HG38 COMMENTED OUT
     // TABIX_OCTOPUS_HG38_BOWTIE2(OCTOPUS_HG38_BOWTIE2.out.vcf)
     // TABIX_OCTOPUS_HG38_BWAMEM(OCTOPUS_HG38_BWAMEM.out.vcf)
 
-    // Prepare ALL variant channels with QC information (18 combinations: 3 callers × 2 aligners × 3 QC)
+    // Prepare ALL variant channels with QC information (18 combinations: 3 callers × 2 aligners × 3 QC) - HG38 COMMENTED OUT
     // DeepVariant HG38
-    deepvariant_hg38_bwamem_fastp = DEEPVARIANT_HG38_BWAMEM.out.vcf
-        .join(DEEPVARIANT_HG38_BWAMEM.out.tbi)
-        .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' }
-        .map { meta, vcf, idx -> [meta.id, "deepvariant", "bwamem", "fastp", "hg38", vcf, idx] }
+    // deepvariant_hg38_bwamem_fastp = DEEPVARIANT_HG38_BWAMEM.out.vcf
+    //     .join(DEEPVARIANT_HG38_BWAMEM.out.tbi)
+    //     .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' }
+    //     .map { meta, vcf, idx -> [meta.id, "deepvariant", "bwamem", "fastp", "hg38", vcf, idx] }
     
-    deepvariant_hg38_bowtie2_fastp = DEEPVARIANT_HG38_BOWTIE2.out.vcf
-        .join(DEEPVARIANT_HG38_BOWTIE2.out.tbi)
-        .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' }
-        .map { meta, vcf, idx -> [meta.id, "deepvariant", "bowtie2", "fastp", "hg38", vcf, idx] }
+    // deepvariant_hg38_bowtie2_fastp = DEEPVARIANT_HG38_BOWTIE2.out.vcf
+    //     .join(DEEPVARIANT_HG38_BOWTIE2.out.tbi)
+    //     .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' }
+    //     .map { meta, vcf, idx -> [meta.id, "deepvariant", "bowtie2", "fastp", "hg38", vcf, idx] }
     
     // deepvariant_hg38_bowtie2_cutadapt = DEEPVARIANT_HG38_BOWTIE2.out.vcf
     //     .join(DEEPVARIANT_HG38_BOWTIE2.out.tbi)
@@ -383,15 +519,15 @@ workflow {
     //     .map { meta, vcf, idx -> [meta.id, "deepvariant", "bwamem", "trimmomatic", "hg38", vcf, idx] }
 
     // GATK HG38
-    gatk_hg38_bwamem_fastp = GATK_HAPLOTYPECALLER_HG38_BWAMEM.out.vcf
-        .join(GATK_HAPLOTYPECALLER_HG38_BWAMEM.out.tbi)
-        .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' }
-        .map { meta, vcf, idx -> [meta.id, "gatk", "bwamem", "fastp", "hg38", vcf, idx] }
+    // gatk_hg38_bwamem_fastp = GATK_HAPLOTYPECALLER_HG38_BWAMEM.out.vcf
+    //     .join(GATK_HAPLOTYPECALLER_HG38_BWAMEM.out.tbi)
+    //     .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' }
+    //     .map { meta, vcf, idx -> [meta.id, "gatk", "bwamem", "fastp", "hg38", vcf, idx] }
     
-    gatk_hg38_bowtie2_fastp = GATK_HAPLOTYPECALLER_HG38_BOWTIE2.out.vcf
-        .join(GATK_HAPLOTYPECALLER_HG38_BOWTIE2.out.tbi)
-        .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' }
-        .map { meta, vcf, idx -> [meta.id, "gatk", "bowtie2", "fastp", "hg38", vcf, idx] }
+    // gatk_hg38_bowtie2_fastp = GATK_HAPLOTYPECALLER_HG38_BOWTIE2.out.vcf
+    //     .join(GATK_HAPLOTYPECALLER_HG38_BOWTIE2.out.tbi)
+    //     .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' }
+    //     .map { meta, vcf, idx -> [meta.id, "gatk", "bowtie2", "fastp", "hg38", vcf, idx] }
     
     // gatk_hg38_bowtie2_cutadapt = GATK_HAPLOTYPECALLER_HG38_BOWTIE2.out.vcf
     //     .join(GATK_HAPLOTYPECALLER_HG38_BOWTIE2.out.tbi)
@@ -439,56 +575,56 @@ workflow {
     //     .map { meta, vcf, idx -> [meta.id, "octopus", "bwamem", "trimmomatic", "hg38", vcf, idx] }
 
     // Combine all HG38 variants for separate comparisons
-    all_hg38_variants = deepvariant_hg38_bwamem_fastp.mix(
-        deepvariant_hg38_bowtie2_fastp,
-        // deepvariant_hg38_bowtie2_cutadapt,
-        // deepvariant_hg38_bowtie2_trimmomatic,
-        // deepvariant_hg38_bwamem_cutadapt,
-        // deepvariant_hg38_bwamem_trimmomatic,
-        gatk_hg38_bowtie2_fastp,
-        // gatk_hg38_bowtie2_cutadapt,
-        // gatk_hg38_bowtie2_trimmomatic,
-        // gatk_hg38_bwamem_cutadapt,
-        // gatk_hg38_bwamem_trimmomatic,
-        // octopus_hg38_bowtie2_fastp,
-        // octopus_hg38_bowtie2_cutadapt,
-        // octopus_hg38_bowtie2_trimmomatic,
-        // octopus_hg38_bwamem_fastp,
-        // octopus_hg38_bwamem_cutadapt,
-        // octopus_hg38_bwamem_trimmomatic
-        gatk_hg38_bwamem_fastp
-    )
+    // all_hg38_variants = deepvariant_hg38_bwamem_fastp.mix(
+    //     deepvariant_hg38_bowtie2_fastp,
+    //     // deepvariant_hg38_bowtie2_cutadapt,
+    //     // deepvariant_hg38_bowtie2_trimmomatic,
+    //     // deepvariant_hg38_bwamem_cutadapt,
+    //     // deepvariant_hg38_bwamem_trimmomatic,
+    //     gatk_hg38_bowtie2_fastp,
+    //     // gatk_hg38_bowtie2_cutadapt,
+    //     // gatk_hg38_bowtie2_trimmomatic,
+    //     // gatk_hg38_bwamem_cutadapt,
+    //     // gatk_hg38_bwamem_trimmomatic,
+    //     // octopus_hg38_bowtie2_fastp,
+    //     // octopus_hg38_bowtie2_cutadapt,
+    //     // octopus_hg38_bowtie2_trimmomatic,
+    //     // octopus_hg38_bwamem_fastp,
+    //     // octopus_hg38_bwamem_cutadapt,
+    //     // octopus_hg38_bwamem_trimmomatic
+    //     gatk_hg38_bwamem_fastp
+    // )
 
     // Run hap.py comparison for each HG38 variant (18 separate comparisons)
-    HAPPY_COMPARE(
-        all_hg38_variants,
-        truth_hg38_vcf,
-        truth_hg38_vcf_idx,
-        truth_hg38_bed,
-        hg38_ref,
-        hg38_ref_fai
-    )
+    // HAPPY_COMPARE(
+    //     all_hg38_variants,
+    //     truth_hg38_vcf,
+    //     truth_hg38_vcf_idx,
+    //     truth_hg38_bed,
+    //     hg38_ref,
+    //     hg38_ref_fai
+    // )
 
     // ========================================
     // COMBINED COMPARISON (all QC tools mixed)
     // ========================================
 
     // Prepare combined channels (without QC distinction) - 6 comparisons
-    deepvariant_hg38_bwamem_combined = DEEPVARIANT_HG38_BWAMEM.out.vcf
-        .join(DEEPVARIANT_HG38_BWAMEM.out.tbi)
-        .map { meta, vcf, idx -> [meta.id, "deepvariant", "bwamem", "combined", "hg38", vcf, idx] }
+    // deepvariant_hg38_bwamem_combined = DEEPVARIANT_HG38_BWAMEM.out.vcf
+    //     .join(DEEPVARIANT_HG38_BWAMEM.out.tbi)
+    //     .map { meta, vcf, idx -> [meta.id, "deepvariant", "bwamem", "combined", "hg38", vcf, idx] }
 
-    gatk_hg38_bwamem_combined = GATK_HAPLOTYPECALLER_HG38_BWAMEM.out.vcf
-        .join(GATK_HAPLOTYPECALLER_HG38_BWAMEM.out.tbi)
-        .map { meta, vcf, idx -> [meta.id, "gatk", "bwamem", "combined", "hg38", vcf, idx] }
+    // gatk_hg38_bwamem_combined = GATK_HAPLOTYPECALLER_HG38_BWAMEM.out.vcf
+    //     .join(GATK_HAPLOTYPECALLER_HG38_BWAMEM.out.tbi)
+    //     .map { meta, vcf, idx -> [meta.id, "gatk", "bwamem", "combined", "hg38", vcf, idx] }
 
-    deepvariant_hg38_bowtie2_combined = DEEPVARIANT_HG38_BOWTIE2.out.vcf
-        .join(DEEPVARIANT_HG38_BOWTIE2.out.tbi)
-        .map { meta, vcf, idx -> [meta.id, "deepvariant", "bowtie2", "combined", "hg38", vcf, idx] }
+    // deepvariant_hg38_bowtie2_combined = DEEPVARIANT_HG38_BOWTIE2.out.vcf
+    //     .join(DEEPVARIANT_HG38_BOWTIE2.out.tbi)
+    //     .map { meta, vcf, idx -> [meta.id, "deepvariant", "bowtie2", "combined", "hg38", vcf, idx] }
 
-    gatk_hg38_bowtie2_combined = GATK_HAPLOTYPECALLER_HG38_BOWTIE2.out.vcf
-        .join(GATK_HAPLOTYPECALLER_HG38_BOWTIE2.out.tbi)
-        .map { meta, vcf, idx -> [meta.id, "gatk", "bowtie2", "combined", "hg38", vcf, idx] }
+    // gatk_hg38_bowtie2_combined = GATK_HAPLOTYPECALLER_HG38_BOWTIE2.out.vcf
+    //     .join(GATK_HAPLOTYPECALLER_HG38_BOWTIE2.out.tbi)
+    //     .map { meta, vcf, idx -> [meta.id, "gatk", "bowtie2", "combined", "hg38", vcf, idx] }
 
     // octopus_hg38_bowtie2_combined = TABIX_OCTOPUS_HG38_BOWTIE2.out.indexed_vcf
     //     .map { meta, vcf, idx -> [meta.id, "octopus", "bowtie2", "combined", "hg38", vcf, idx] }
@@ -497,23 +633,210 @@ workflow {
     //     .map { meta, vcf, idx -> [meta.id, "octopus", "bwamem", "combined", "hg38", vcf, idx] }
 
     // Mix all for combined comparison
-    all_hg38_variants_combined = deepvariant_hg38_bwamem_combined.mix(
-        deepvariant_hg38_bowtie2_combined,
-        gatk_hg38_bowtie2_combined,
-        // octopus_hg38_bowtie2_combined,
-        // octopus_hg38_bwamem_combined
-        gatk_hg38_bwamem_combined
-    )
+    // all_hg38_variants_combined = deepvariant_hg38_bwamem_combined.mix(
+    //     deepvariant_hg38_bowtie2_combined,
+    //     gatk_hg38_bowtie2_combined,
+    //     // octopus_hg38_bowtie2_combined,
+    //     // octopus_hg38_bwamem_combined
+    //     gatk_hg38_bwamem_combined
+    // )
 
     // Run hap.py for combined variants (6 comparisons: 3 callers × 2 aligners)
-    HAPPY_COMPARE_COMBINED(
-        all_hg38_variants_combined,
-        truth_hg38_vcf,
-        truth_hg38_vcf_idx,
-        truth_hg38_bed,
-        hg38_ref,
-        hg38_ref_fai
-    )
+    // HAPPY_COMPARE_COMBINED(
+    //     all_hg38_variants_combined,
+    //     truth_hg38_vcf,
+    //     truth_hg38_vcf_idx,
+    //     truth_hg38_bed,
+    //     hg38_ref,
+    //     hg38_ref_fai
+    // )
+
+    // ========================================
+    // BENCHMARKING WITH Truvari (Structural Variants - HG38) - COMMENTED OUT
+    // ========================================
+
+    // Load truth SV VCF file for HG37 (GIAB CMRG v1.00 structural variants) - COMMENTED OUT
+    // def truth_hg37_sv_vcf = file(params.truth_hg37_sv_vcf)
+    // def truth_hg37_sv_vcf_idx = file("${params.truth_hg37_sv_vcf}.tbi")
+    // def truth_hg37_sv_bed = file(params.truth_hg37_sv_bed)
+
+    // Load truth SV VCF file for HG38 (GIAB CMRG v1.00 structural variants) - COMMENTED OUT
+    // def truth_hg38_sv_vcf = file(params.truth_hg38_sv_vcf)
+    // def truth_hg38_sv_vcf_idx = file("${params.truth_hg38_sv_vcf}.tbi")
+    // def truth_hg38_sv_bed = file(params.truth_hg38_sv_bed)
+
+    // Prepare Manta HG38 variants (separate QC comparisons) - COMMENTED OUT
+    // manta_hg38_bwamem_fastp = MANTA_HG38_BWAMEM.out.vcf
+    //     .join(MANTA_HG38_BWAMEM.out.tbi)
+    //     .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' }
+    //     .map { meta, vcf, idx -> [meta.id, "manta", "bwamem", "fastp", "hg38", vcf, idx] }
+
+    // manta_hg38_bowtie2_fastp = MANTA_HG38_BOWTIE2.out.vcf
+    //     .join(MANTA_HG38_BOWTIE2.out.tbi)
+    //     .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' }
+    //     .map { meta, vcf, idx -> [meta.id, "manta", "bowtie2", "fastp", "hg38", vcf, idx] }
+
+    // Prepare Delly HG38 variants (separate QC comparisons) - COMMENTED OUT
+    // delly_hg38_bwamem_fastp = DELLY_HG38_BWAMEM.out.vcf
+    //     .join(DELLY_HG38_BWAMEM.out.tbi)
+    //     .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' }
+    //     .map { meta, vcf, idx -> [meta.id, "delly", "bwamem", "fastp", "hg38", vcf, idx] }
+
+    // delly_hg38_bowtie2_fastp = DELLY_HG38_BOWTIE2.out.vcf
+    //     .join(DELLY_HG38_BOWTIE2.out.tbi)
+    //     .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' }
+    //     .map { meta, vcf, idx -> [meta.id, "delly", "bowtie2", "fastp", "hg38", vcf, idx] }
+
+    // Prepare combined SV variants for Truvari benchmarking (1 comparison: 1 aligner) - COMMENTED OUT
+    // Using combined DELLY+MANTA callsets
+    // combined_sv_for_truvari = COMBINE_SV.out.combined_vcf
+    //     .map { sample_id, aligner, qc, reference, vcf, idx ->
+    //         [sample_id, "combined_delly_manta", aligner, qc, reference, vcf, idx]
+    //     }
+
+    // Combine individual callers + combined callset for Truvari benchmarking - COMMENTED OUT
+    // Total: 3 comparisons (2 individual + 1 combined)
+    // all_hg38_sv_variants = manta_hg38_bwamem_fastp.mix(
+    //     // manta_hg38_bowtie2_fastp,
+    //     delly_hg38_bwamem_fastp,
+    //     // delly_hg38_bowtie2_fastp,
+    //     combined_sv_for_truvari
+    // )
+
+    // Run Truvari comparison on individual AND combined SV callsets - COMMENTED OUT
+    // 3 comparisons: MANTA (1), DELLY (1), Combined DELLY+MANTA (1)
+    // TRUVARI_COMPARE(
+    //     all_hg38_sv_variants,
+    //     truth_hg38_sv_vcf,
+    //     truth_hg38_sv_vcf_idx,
+    //     truth_hg38_sv_bed,
+    //     hg38_ref,
+    //     hg38_ref_fai
+    // )
+
+    // ========================================
+    // BENCHMARKING WITH Truvari (Structural Variants - HG38) - COMMENTED OUT
+    // ========================================
+
+    // Load truth SV VCF file for HG38 (GIAB CMRG v1.00 structural variants) - COMMENTED OUT
+    // def truth_hg38_sv_vcf = file(params.truth_hg38_sv_vcf)
+    // def truth_hg38_sv_vcf_idx = file("${params.truth_hg38_sv_vcf}.tbi")
+    // def truth_hg38_sv_bed = file(params.truth_hg38_sv_bed)
+
+    // Prepare Manta HG38 variants (separate QC comparisons) - COMMENTED OUT
+    // manta_hg38_bwamem_fastp = MANTA_HG38_BWAMEM.out.vcf
+    //     .join(MANTA_HG38_BWAMEM.out.tbi)
+    //     .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' }
+    //     .map { meta, vcf, idx -> [meta.id, "manta", "bwamem", "fastp", "hg38", vcf, idx] }
+
+    // manta_hg38_bowtie2_fastp = MANTA_HG38_BOWTIE2.out.vcf
+    //     .join(MANTA_HG38_BOWTIE2.out.tbi)
+    //     .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' }
+    //     .map { meta, vcf, idx -> [meta.id, "manta", "bowtie2", "fastp", "hg38", vcf, idx] }
+
+    // Prepare Delly HG38 variants (separate QC comparisons)
+    // delly_hg38_bwamem_fastp = DELLY_HG38_BWAMEM.out.vcf
+    //     .join(DELLY_HG38_BWAMEM.out.tbi)
+    //     .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' }
+    //     .map { meta, vcf, idx -> [meta.id, "delly", "bwamem", "fastp", "hg38", vcf, idx] }
+
+    // delly_hg38_bowtie2_fastp = DELLY_HG38_BOWTIE2.out.vcf
+    //     .join(DELLY_HG38_BOWTIE2.out.tbi)
+    //     .filter { meta, vcf, idx -> meta.qc_tool == 'fastp' }
+    //     .map { meta, vcf, idx -> [meta.id, "delly", "bowtie2", "fastp", "hg38", vcf, idx] }
+
+    // Combine all HG38 structural variants for separate comparisons
+    // all_hg38_sv_variants = manta_hg38_bwamem_fastp.mix(
+    //     manta_hg38_bowtie2_fastp,
+    //     delly_hg38_bwamem_fastp,
+    //     delly_hg38_bowtie2_fastp
+    // )
+
+    // Run Truvari comparison for each HG38 structural variant (4 comparisons: 2 callers × 2 aligners)
+    // TRUVARI_COMPARE(
+    //     all_hg38_sv_variants,
+    //     truth_hg38_sv_vcf,
+    //     truth_hg38_sv_vcf_idx,
+    //     truth_hg38_sv_bed,
+    //     hg38_ref,
+    //     hg38_ref_fai
+    // )
+
+    // ========================================
+    // COMBINED COMPARISON FOR SV (all QC tools mixed) - HG38 - COMMENTED OUT
+    // ========================================
+
+    // Prepare combined channels for structural variants - HG37 - COMMENTED OUT
+    // manta_hg37_bwamem_combined = MANTA_HG37_BWAMEM.out.vcf
+    //     .join(MANTA_HG37_BWAMEM.out.tbi)
+    //     .map { meta, vcf, idx -> [meta.id, "manta", "bwamem", "combined", "hg37", vcf, idx] }
+
+    // manta_hg37_bowtie2_combined = MANTA_HG37_BOWTIE2.out.vcf
+    //     .join(MANTA_HG37_BOWTIE2.out.tbi)
+    //     .map { meta, vcf, idx -> [meta.id, "manta", "bowtie2", "combined", "hg37", vcf, idx] }
+
+    // delly_hg37_bwamem_combined = DELLY_HG37_BWAMEM.out.vcf
+    //     .join(DELLY_HG37_BWAMEM.out.tbi)
+    //     .map { meta, vcf, idx -> [meta.id, "delly", "bwamem", "combined", "hg37", vcf, idx] }
+
+    // delly_hg37_bowtie2_combined = DELLY_HG37_BOWTIE2.out.vcf
+    //     .join(DELLY_HG37_BOWTIE2.out.tbi)
+    //     .map { meta, vcf, idx -> [meta.id, "delly", "bowtie2", "combined", "hg37", vcf, idx] }
+
+    // Mix all for combined SV comparison - HG37
+    // all_hg37_sv_variants_combined = manta_hg37_bwamem_combined.mix(
+    //     manta_hg37_bowtie2_combined,
+    //     delly_hg37_bwamem_combined,
+    //     delly_hg37_bowtie2_combined
+    // )
+
+    // Run Truvari for combined SV variants (4 comparisons: 2 SV callers × 2 aligners) - HG37
+    // TRUVARI_COMPARE_COMBINED(
+    //     all_hg37_sv_variants_combined,
+    //     truth_hg37_sv_vcf,
+    //     truth_hg37_sv_vcf_idx,
+    //     truth_hg37_sv_bed,
+    //     hg37_ref,
+    //     hg37_ref_fai
+    // )
+
+    // ========================================
+    // COMBINED COMPARISON FOR SV (all QC tools mixed) - HG38 - COMMENTED OUT
+    // ========================================
+
+    // Prepare combined channels for structural variants - HG38 - COMMENTED OUT
+    // manta_hg38_bwamem_combined = MANTA_HG38_BWAMEM.out.vcf
+    //     .join(MANTA_HG38_BWAMEM.out.tbi)
+    //     .map { meta, vcf, idx -> [meta.id, "manta", "bwamem", "combined", "hg38", vcf, idx] }
+
+    // manta_hg38_bowtie2_combined = MANTA_HG38_BOWTIE2.out.vcf
+    //     .join(MANTA_HG38_BOWTIE2.out.tbi)
+    //     .map { meta, vcf, idx -> [meta.id, "manta", "bowtie2", "combined", "hg38", vcf, idx] }
+
+    // delly_hg38_bwamem_combined = DELLY_HG38_BWAMEM.out.vcf
+    //     .join(DELLY_HG38_BWAMEM.out.tbi)
+    //     .map { meta, vcf, idx -> [meta.id, "delly", "bwamem", "combined", "hg38", vcf, idx] }
+
+    // delly_hg38_bowtie2_combined = DELLY_HG38_BOWTIE2.out.vcf
+    //     .join(DELLY_HG38_BOWTIE2.out.tbi)
+    //     .map { meta, vcf, idx -> [meta.id, "delly", "bowtie2", "combined", "hg38", vcf, idx] }
+
+    // Mix all for combined SV comparison - COMMENTED OUT
+    // all_hg38_sv_variants_combined = manta_hg38_bwamem_combined.mix(
+    //     // manta_hg38_bowtie2_combined,
+    //     delly_hg38_bwamem_combined
+    //     // delly_hg38_bowtie2_combined
+    // )
+
+    // Run Truvari for combined SV variants (2 comparisons: 2 SV callers × 1 aligner) - COMMENTED OUT
+    // TRUVARI_COMPARE_COMBINED(
+    //     all_hg38_sv_variants_combined,
+    //     truth_hg38_sv_vcf,
+    //     truth_hg38_sv_vcf_idx,
+    //     truth_hg38_sv_bed,
+    //     hg38_ref,
+    //     hg38_ref_fai
+    // )
 }
 
 // Print completion message
@@ -606,6 +929,28 @@ workflow.onComplete {
     VARIANT CALLING - GATK HAPLOTYPECALLER (2 aligners × 3 QC × 3 genomes = 18 combinations):
       Output directories similar to Octopus under:
         ${params.outdir}/06_variant_calling/gatk/
+
+    COMBINED VARIANT CALLSETS (BENCHMARKED):
+      SNP/INDEL (GATK + DeepVariant intersection):
+        - Combined callsets: ${params.outdir}/04_variant_calling/combined/snp_indel/
+        - Statistics: Check *_stats.txt files for comparison metrics
+      
+      SV (DELLY + MANTA union):
+        - Combined callsets: ${params.outdir}/04_variant_calling/combined/sv/
+        - Statistics: Check *_stats.txt files for comparison metrics
+
+    BENCHMARKING RESULTS (individual + combined callsets):
+      hap.py comparisons (SNP/INDEL vs GIAB truth):
+        - Individual callers: DeepVariant (2 aligners), GATK (2 aligners)
+        - Combined callset: GATK+DeepVariant (2 aligners)
+        - Total: 6 comparisons
+        - Results: ${params.outdir}/05_happy_comparison/
+      
+      Truvari comparisons (SV vs GIAB truth):
+        - Individual callers: MANTA (2 aligners), DELLY (2 aligners)
+        - Combined callset: DELLY+MANTA (2 aligners)
+        - Total: 6 comparisons
+        - Results: ${params.outdir}/05_truvari_comparison/
     ================================================================
     """.stripIndent()
 }

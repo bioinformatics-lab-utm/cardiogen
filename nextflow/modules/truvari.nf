@@ -43,12 +43,61 @@ process TRUVARI_COMPARE {
     # Convert BCF to VCF.GZ if needed (for Delly output)
     if [[ ${query_vcf} == *.bcf ]]; then
         echo "Converting BCF to VCF.GZ..."
-        bcftools view -O z -o query.vcf.gz ${query_vcf}
-        bcftools index -t query.vcf.gz
-        QUERY_VCF="query.vcf.gz"
+        bcftools view -O z -o query_temp.vcf.gz ${query_vcf}
+        bcftools index -t query_temp.vcf.gz
+        TEMP_VCF="query_temp.vcf.gz"
     else
-        QUERY_VCF="${query_vcf}"
+        TEMP_VCF="${query_vcf}"
     fi
+
+    # Normalize chromosome names (remove "chr" prefix to match GIAB truth VCF format)
+    echo "Normalizing chromosome names..."
+    
+    # Create chromosome mapping file (chr1->1, chr2->2, etc.)
+    cat > chr_rename.txt <<'CHRMAP'
+chr1	1
+chr2	2
+chr3	3
+chr4	4
+chr5	5
+chr6	6
+chr7	7
+chr8	8
+chr9	9
+chr10	10
+chr11	11
+chr12	12
+chr13	13
+chr14	14
+chr15	15
+chr16	16
+chr17	17
+chr18	18
+chr19	19
+chr20	20
+chr21	21
+chr22	22
+chrX	X
+chrY	Y
+chrM	MT
+CHRMAP
+
+    # Check if query VCF uses "chr" prefix
+    # Ignore SIGPIPE error from head closing the pipe early
+    FIRST_CHR=\$(bcftools view -H \${TEMP_VCF} 2>/dev/null | head -n1 | awk '{print \$1}' || true)
+    
+    if [[ "\${FIRST_CHR}" == chr* ]]; then
+        echo "Query VCF uses 'chr' prefix, normalizing to match truth VCF..."
+        bcftools annotate --rename-chrs chr_rename.txt -O z -o query.vcf.gz \${TEMP_VCF}
+        bcftools index -t query.vcf.gz
+        echo "Chromosome names normalized"
+    else
+        echo "Query VCF already uses numeric chromosome names, no normalization needed"
+        cp \${TEMP_VCF} query.vcf.gz
+        cp \${TEMP_VCF}.tbi query.vcf.gz.tbi
+    fi
+    
+    QUERY_VCF="query.vcf.gz"
 
     # Run Truvari benchmarking
     truvari bench \\

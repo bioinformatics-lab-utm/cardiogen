@@ -10,6 +10,7 @@ timeline.html
 report.html
 dag.dot
 .nextflow.pid
+reference/
 
 # FastQC
 *_fastqc.html
@@ -116,4 +117,3 @@ secrets.config
 # Backup files
 *.bak
 *.backup
-
