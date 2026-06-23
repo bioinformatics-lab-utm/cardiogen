@@ -14,7 +14,7 @@ nextflow.enable.dsl = 2
 process HAPPY_COMPARE {
     tag "${sample_id}_${caller}_${aligner}_${qc}_${reference}"
     label 'process_medium'
-    publishDir "${params.outdir}/05_happy_comparison/${caller}/${aligner}/${qc}/${reference}", mode: 'copy'
+    publishDir "${params.outdir}/06_happy_comparison/${caller}/${aligner}/${qc}/${reference}", mode: 'copy'
 
     container 'jmcdani20/hap.py:v0.3.12'
 

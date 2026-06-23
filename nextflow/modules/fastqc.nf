@@ -2,8 +2,8 @@ process FASTQC {
     tag "$meta.id"
     label 'process_medium'
 
-    publishDir "${params.outdir}/02_QC/raw_data", mode: 'copy', pattern: "*_fastqc.html"
-    publishDir "${params.outdir}/02_QC/raw_data/plots", mode: 'copy', pattern: "*/Images/*.png"
+    publishDir "${params.outdir}/01_QC/raw_data", mode: 'copy', pattern: "*_fastqc.html"
+    publishDir "${params.outdir}/01_QC/raw_data/plots", mode: 'copy', pattern: "*/Images/*.png"
 
     container 'staphb/fastqc:0.12.1'
 

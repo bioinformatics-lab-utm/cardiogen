@@ -90,10 +90,24 @@ def helpMessage() {
     // --hg37_index      Path to hg37 bowtie2 index directory (default: ${params.hg37_index})
     --hg38_index      Path to hg38 bwa index directory (default: ${params.hg38_index})
     // --t2t_index       Path to T2T bowtie2 index directory (default: ${params.t2t_index})
+    
+    Exome Sequencing Options:
+    --exome_mode      Enable exome sequencing mode (default: ${params.exome_mode})
+    --exome_bed_hg37  Path to hg37 exome target regions BED file (default: ${params.exome_bed_hg37})
+    --exome_bed_hg38  Path to hg38 exome target regions BED file (default: ${params.exome_bed_hg38})
+    --exome_padding   Padding (bp) around exome regions (default: ${params.exome_padding})
+    --seq_platform    Sequencing platform for DeepVariant model (default: ${params.seq_platform})
+                      Options: WGS, WES, PACBIO, ONT_R104, HYBRID_PACBIO_ILLUMINA
+    
     --help            Show this help message
     
-    Example:
+    Example (WGS):
     nextflow run main.nf --input_dir /path/to/fastq --outdir /path/to/results
+    
+    Example (Exome):
+    nextflow run main.nf --input_dir /path/to/fastq --outdir /path/to/results \\
+        --exome_mode true --seq_platform WES \\
+        --exome_bed_hg38 /path/to/exome_regions.bed
     """.stripIndent()
 }
 
@@ -113,6 +127,8 @@ workflow {
     Input directory : ${params.input_dir}
     Output directory: ${params.outdir}
     File pattern    : ${params.pattern}
+    Exome mode      : ${params.exome_mode}
+    Seq platform    : ${params.seq_platform}
     ================================================================
     """.stripIndent()
 
@@ -126,15 +142,15 @@ workflow {
             [meta, files]
         }
 
-    // Run preprocessing tools on raw data
+    // Step 1: Run FastQC on raw data (quality control first)
+    FASTQC(fastq_ch)
+
+    // Step 2: Run preprocessing tools on raw data
     FASTP(fastq_ch)
     // CUTADAPT(fastq_ch)
     // TRIMMOMATIC(fastq_ch)
 
-    // Run FastQC on raw data
-    FASTQC(fastq_ch)
-
-    // Run FastQC on processed data
+    // Step 3: Run FastQC on processed data
     FASTQC_FASTP(FASTP.out.reads)
     // FASTQC_CUTADAPT(CUTADAPT.out.reads)
     // FASTQC_TRIMMOMATIC(TRIMMOMATIC.out.paired_reads)
@@ -260,13 +276,27 @@ workflow {
     //         [new_meta, bam, bai]
     //     }
 
-    bwamem_hg38_bams = BWAMEM_HG38.out.bam
+    // Create channel with BAM files and broadcast to multiple variant callers
+    // Using multiMap to create separate copies for each variant caller
+    bwamem_hg38_bams_all = BWAMEM_HG38.out.bam
         .join(BWAMEM_HG38.out.bai)
         .map { meta, bam, bai ->
             def new_meta = meta.clone()
             new_meta.aligner = "bwamem"
             [new_meta, bam, bai]
         }
+        .multiMap { meta, bam, bai ->
+            manta: [meta, bam, bai]
+            delly: [meta, bam, bai]
+            deepvariant: [meta, bam, bai]
+            gatk: [meta, bam, bai]
+        }
+    
+    // Assign each channel copy
+    bwamem_hg38_bams_manta = bwamem_hg38_bams_all.manta
+    bwamem_hg38_bams_delly = bwamem_hg38_bams_all.delly
+    bwamem_hg38_bams_deepvariant = bwamem_hg38_bams_all.deepvariant
+    bwamem_hg38_bams_gatk = bwamem_hg38_bams_all.gatk
 
     // bwamem_t2t_bams = BWAMEM_T2T.out.bam
     //     .join(BWAMEM_T2T.out.bai)
@@ -295,7 +325,9 @@ workflow {
 
     // Run Manta variant calling on BWA-MEM alignments
     // MANTA_HG37_BWAMEM(bwamem_hg37_bams)
-    MANTA_HG38_BWAMEM(bwamem_hg38_bams)
+    exome_bed_ch = params.exome_mode && params.exome_bed_hg38 ? Channel.value(file(params.exome_bed_hg38)) : Channel.value(file('NO_FILE'))
+    exome_bed_tbi_ch = params.exome_mode && params.exome_bed_hg38 ? Channel.value(file(params.exome_bed_hg38 + '.tbi')) : Channel.value(file('NO_FILE'))
+    MANTA_HG38_BWAMEM(bwamem_hg38_bams_manta, exome_bed_ch, exome_bed_tbi_ch)
     // MANTA_T2T_BWAMEM(bwamem_t2t_bams)
 
     // ========================================
@@ -309,7 +341,7 @@ workflow {
 
     // Run Delly variant calling on BWA-MEM alignments
     // DELLY_HG37_BWAMEM(bwamem_hg37_bams)
-    DELLY_HG38_BWAMEM(bwamem_hg38_bams)
+    DELLY_HG38_BWAMEM(bwamem_hg38_bams_delly)
     // DELLY_T2T_BWAMEM(bwamem_t2t_bams)
 
     // ========================================
@@ -323,7 +355,7 @@ workflow {
 
     // Run DeepVariant variant calling on BWA-MEM alignments
     // DEEPVARIANT_HG37_BWAMEM(bwamem_hg37_bams)
-    DEEPVARIANT_HG38_BWAMEM(bwamem_hg38_bams)
+    DEEPVARIANT_HG38_BWAMEM(bwamem_hg38_bams_deepvariant, exome_bed_ch, exome_bed_tbi_ch)
     // DEEPVARIANT_T2T_BWAMEM(bwamem_t2t_bams)
 
     // ========================================
@@ -337,7 +369,7 @@ workflow {
 
     // Run GATK HaplotypeCaller variant calling on BWA-MEM alignments
     // GATK_HAPLOTYPECALLER_HG37_BWAMEM(bwamem_hg37_bams)
-    GATK_HAPLOTYPECALLER_HG38_BWAMEM(bwamem_hg38_bams)
+    GATK_HAPLOTYPECALLER_HG38_BWAMEM(bwamem_hg38_bams_gatk, exome_bed_ch, exome_bed_tbi_ch)
     // GATK_HAPLOTYPECALLER_T2T_BWAMEM(bwamem_t2t_bams)
 
     // ========================================

@@ -16,7 +16,7 @@ nextflow.enable.dsl = 2
 process MERGE_SNPINDEL_CALLERS {
     tag "${sample_id}_${aligner}_${qc}_${reference}_gatk_deepvariant"
     label 'process_medium'
-    publishDir "${params.outdir}/04_variant_calling/merged/snp_indel/${aligner}/${qc}/${reference}", mode: 'copy'
+    publishDir "${params.outdir}/05_variant_calling/merged/snp_indel/${aligner}/${qc}/${reference}", mode: 'copy'
 
     container 'quay.io/biocontainers/bcftools:1.19--h8b25389_0'
 
@@ -68,7 +68,7 @@ process MERGE_SNPINDEL_CALLERS {
 process MERGE_SV_CALLERS {
     tag "${sample_id}_${aligner}_${qc}_${reference}_delly_manta"
     label 'process_medium'
-    publishDir "${params.outdir}/04_variant_calling/merged/sv/${aligner}/${qc}/${reference}", mode: 'copy'
+    publishDir "${params.outdir}/05_variant_calling/merged/sv/${aligner}/${qc}/${reference}", mode: 'copy'
 
     container 'quay.io/biocontainers/bcftools:1.19--h8b25389_0'
 
@@ -125,7 +125,7 @@ process MERGE_SV_CALLERS {
 process MERGE_SNPINDEL_CALLERS_COMBINED {
     tag "${sample_id}_${aligner}_combined_${reference}_gatk_deepvariant"
     label 'process_medium'
-    publishDir "${params.outdir}/04_variant_calling/merged/snp_indel_combined/${aligner}/${reference}", mode: 'copy'
+    publishDir "${params.outdir}/05_variant_calling/merged/snp_indel_combined/${aligner}/${reference}", mode: 'copy'
 
     container 'quay.io/biocontainers/bcftools:1.19--h8b25389_0'
 
@@ -174,7 +174,7 @@ process MERGE_SNPINDEL_CALLERS_COMBINED {
 process MERGE_SV_CALLERS_COMBINED {
     tag "${sample_id}_${aligner}_combined_${reference}_delly_manta"
     label 'process_medium'
-    publishDir "${params.outdir}/04_variant_calling/merged/sv_combined/${aligner}/${reference}", mode: 'copy'
+    publishDir "${params.outdir}/05_variant_calling/merged/sv_combined/${aligner}/${reference}", mode: 'copy'
 
     container 'quay.io/biocontainers/bcftools:1.19--h8b25389_0'
 

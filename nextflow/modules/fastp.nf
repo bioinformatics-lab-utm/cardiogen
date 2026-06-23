@@ -1,7 +1,7 @@
 process FASTP {
     tag "$meta.id"
     label 'process_medium'
-    publishDir "${params.outdir}/01_fastp", mode: 'copy'
+    publishDir "${params.outdir}/02_fastp", mode: 'copy'
     container 'staphb/fastp:0.23.4'
     
     input:
@@ -42,6 +42,7 @@ process FASTP {
             --in2 ${reads[1]} \\
             --out1 ${prefix}_fastp_1.fastq.gz \\
             --out2 ${prefix}_fastp_2.fastq.gz \\
+            --fix_mgi_id \\
             --thread $task.cpus \\
             --json ${prefix}_fastp.json \\
             --html ${prefix}_fastp.html \\
