@@ -81,10 +81,10 @@
 // }
 
 process BWAMEM_HG38 {
-    tag "$meta.id - $meta.qc_tool - hg38"
+    tag "$meta.run - $meta.id - $meta.qc_tool - hg38"
     label 'process_high'
 
-    publishDir "${params.outdir}/04_bwamem/${meta.qc_tool}/hg38", mode: 'copy'
+    publishDir "${params.outdir}/04_bwamem/${meta.run}/${meta.qc_tool}/hg38", mode: 'copy'
 
     container 'quay.io/biocontainers/mulled-v2-fe8faa35dbf6dc65a0f7f5d4ea12e31a79f73e40:8110a70be2bfe7f75a2ea7f2a89cda4cc7732095-0'
 

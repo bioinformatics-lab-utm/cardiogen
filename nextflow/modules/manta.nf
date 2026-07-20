@@ -195,10 +195,10 @@
 // }
 
 process MANTA_HG38_BWAMEM {
-    tag "$meta.id - $meta.qc_tool - hg38 - bwamem"
+    tag "$meta.run - $meta.id - $meta.qc_tool - hg38 - bwamem"
     label 'process_high'
 
-    publishDir "${params.outdir}/05_variant_calling/manta/bwamem/${meta.qc_tool}/hg38", mode: 'copy'
+    publishDir "${params.outdir}/05_variant_calling/${meta.run}/manta/bwamem/${meta.qc_tool}/hg38", mode: 'copy'
 
     container 'quay.io/biocontainers/manta:1.6.0--h9ee0642_1'
 

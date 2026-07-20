@@ -161,10 +161,10 @@
 // }
 
 process GATK_HAPLOTYPECALLER_HG38_BWAMEM {
-    tag "$meta.id - $meta.qc_tool - hg38 - bwamem"
+    tag "$meta.run - $meta.id - $meta.qc_tool - hg38 - bwamem"
     label 'process_high'
 
-    publishDir "${params.outdir}/05_variant_calling/gatk/bwamem/${meta.qc_tool}/hg38", mode: 'copy'
+    publishDir "${params.outdir}/05_variant_calling/${meta.run}/gatk/bwamem/${meta.qc_tool}/hg38", mode: 'copy'
 
     container 'broadinstitute/gatk:4.5.0.0'
 

@@ -155,10 +155,10 @@
 // }
 
 process DELLY_HG38_BWAMEM {
-    tag "$meta.id - $meta.qc_tool - hg38 - bwamem"
+    tag "$meta.run - $meta.id - $meta.qc_tool - hg38 - bwamem"
     label 'process_high'
 
-    publishDir "${params.outdir}/05_variant_calling/delly/bwamem/${meta.qc_tool}/hg38", mode: 'copy'
+    publishDir "${params.outdir}/05_variant_calling/${meta.run}/delly/bwamem/${meta.qc_tool}/hg38", mode: 'copy'
 
     container 'dellytools/delly:latest'
 

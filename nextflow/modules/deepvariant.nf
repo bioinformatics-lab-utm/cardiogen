@@ -179,10 +179,10 @@
 // }
 
 process DEEPVARIANT_HG38_BWAMEM {
-    tag "$meta.id - $meta.qc_tool - hg38 - bwamem"
+    tag "$meta.run - $meta.id - $meta.qc_tool - hg38 - bwamem"
     label 'process_high'
 
-    publishDir "${params.outdir}/05_variant_calling/deepvariant/bwamem/${meta.qc_tool}/hg38", mode: 'copy'
+    publishDir "${params.outdir}/05_variant_calling/${meta.run}/deepvariant/bwamem/${meta.qc_tool}/hg38", mode: 'copy'
 
     container 'google/deepvariant:1.6.1'
 

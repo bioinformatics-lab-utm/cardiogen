@@ -1,7 +1,7 @@
 process FASTP {
-    tag "$meta.id"
+    tag "$meta.run - $meta.id"
     label 'process_medium'
-    publishDir "${params.outdir}/02_fastp", mode: 'copy'
+    publishDir "${params.outdir}/02_fastp/${meta.run}", mode: 'copy'
     container 'staphb/fastp:0.23.4'
     
     input:

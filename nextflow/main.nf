@@ -25,6 +25,7 @@ include { FASTQC_FASTP } from './modules/fastqc_fastp'
 // include { BWAMEM_HG37 } from './modules/bwa'
 include { BWAMEM_HG38 } from './modules/bwa'
 // include { BWAMEM_T2T } from './modules/bwa'
+include { COUNT_READS } from './modules/count_reads'
 // include { OCTOPUS_HG37_BOWTIE2 } from './modules/octopus'
 // include { OCTOPUS_HG38_BOWTIE2 } from './modules/octopus'
 // include { OCTOPUS_HG37_BWAMEM } from './modules/octopus'
@@ -53,10 +54,13 @@ include { DEEPVARIANT_HG38_BWAMEM } from './modules/deepvariant'
 // include { GATK_HAPLOTYPECALLER_HG37_BWAMEM } from './modules/gatk'
 include { GATK_HAPLOTYPECALLER_HG38_BWAMEM } from './modules/gatk'
 // include { GATK_HAPLOTYPECALLER_T2T_BWAMEM } from './modules/gatk'
-// include { HAPPY_COMPARE } from './modules/happy'
-// include { HAPPY_COMPARE as HAPPY_COMPARE_COMBINED } from './modules/happy'
+include { CROSSMAP_LIFTOVER } from './modules/liftover'
+include { HAPPY_COMPARE } from './modules/happy'
+include { BCFTOOLS_ISEC } from './modules/bcftools_isec'
+// Truvari is intentionally NOT wired in: the reference VCFs (reference/vcf_hdd) contain
+// only SNPs/indels (no structural variants), so there is no SV truth for Manta/Delly to
+// be benchmarked against.
 // include { TRUVARI_COMPARE } from './modules/truvari'
-// include { TRUVARI_COMPARE as TRUVARI_COMPARE_COMBINED } from './modules/truvari'
 // include { BCF_TO_VCFGZ } from './modules/tabix'  // Not needed - Delly not benchmarked with Happy
 // include { COMBINE_SNP_INDEL } from './modules/combine_callers'
 // include { COMBINE_SV } from './modules/combine_callers'
@@ -64,9 +68,11 @@ include { GATK_HAPLOTYPECALLER_HG38_BWAMEM } from './modules/gatk'
 // include { TABIX_INDEX as TABIX_OCTOPUS_HG38_BWAMEM } from './modules/tabix'
 
 // Parameters
-params.input_dir = "${projectDir}/test_data/ont_data"
+// `input_dir` holds one sub-folder per sequencing run; each run folder contains many
+// paired-end fastq.gz files. Results are mirrored per-run using meta.run (see below).
+params.input_dir = "${projectDir}/data"
 params.outdir = "${projectDir}/results"
-params.pattern = "HG002_R{1,2}_complete.fastq.gz"
+params.pattern = "*_R{1,2}_001.fastq.gz"
 
 // Reference genome parameters
 // params.hg37_index = "${projectDir}/reference/hg37"
@@ -132,12 +138,21 @@ workflow {
     ================================================================
     """.stripIndent()
 
-    // Create input channel from FASTQ files
+    // Create input channel from FASTQ files.
+    // Files live in `${input_dir}/<run>/<sample>_R{1,2}_001.fastq.gz`. The grouping
+    // key embeds the run folder so identically-named samples in different runs never
+    // get paired together, and meta.run is used to mirror every result per run folder.
     fastq_ch = Channel
-        .fromFilePairs("${params.input_dir}/${params.pattern}", checkIfExists: true)
-        .map { sample_id, files ->
+        .fromFilePairs("${params.input_dir}/*/${params.pattern}", checkIfExists: true) { file ->
+            def run = file.parent.name
+            def sample = file.name.replaceAll(/_R[12]_001\.fastq\.gz$/, '')
+            "${run}__${sample}"
+        }
+        .map { key, files ->
+            def parts = key.split('__', 2)
             def meta = [:]
-            meta.id = sample_id
+            meta.run = parts[0]
+            meta.id = parts[1]
             meta.single_end = false  // Paired-end data
             [meta, files]
         }
@@ -277,14 +292,35 @@ workflow {
     //     }
 
     // Create channel with BAM files and broadcast to multiple variant callers
-    // Using multiMap to create separate copies for each variant caller
-    bwamem_hg38_bams_all = BWAMEM_HG38.out.bam
+    bwamem_hg38_bams = BWAMEM_HG38.out.bam
         .join(BWAMEM_HG38.out.bai)
         .map { meta, bam, bai ->
             def new_meta = meta.clone()
             new_meta.aligner = "bwamem"
             [new_meta, bam, bai]
         }
+
+    // Gate: drop empty/failed samples before variant calling. Callers such as Delly
+    // abort ("Sample has not enough data to estimate library parameters!") on near-empty
+    // BAMs, and because the global errorStrategy is 'finish', a single junk sample (e.g. a
+    // negative control or a sample that failed sequencing - only a handful of reads) would
+    // otherwise kill the entire run. COUNT_READS reports the number of properly-paired
+    // mapped reads; samples below params.min_mapped_reads are logged and excluded here,
+    // while genuine failures on real samples still surface normally.
+    bwamem_hg38_bams_gated = COUNT_READS(bwamem_hg38_bams).counted
+        .branch { meta, bam, bai, count ->
+            pass: count.toInteger() >= params.min_mapped_reads
+            skip: true
+        }
+
+    bwamem_hg38_bams_gated.skip.subscribe { meta, bam, bai, count ->
+        log.warn "Skipping variant calling for ${meta.run} / ${meta.id} (${meta.qc_tool}): " +
+                 "only ${count} properly-paired mapped reads (< params.min_mapped_reads=${params.min_mapped_reads})"
+    }
+
+    // Using multiMap to create separate copies for each variant caller
+    bwamem_hg38_bams_all = bwamem_hg38_bams_gated.pass
+        .map { meta, bam, bai, count -> [meta, bam, bai] }
         .multiMap { meta, bam, bai ->
             manta: [meta, bam, bai]
             delly: [meta, bam, bai]
@@ -371,6 +407,57 @@ workflow {
     // GATK_HAPLOTYPECALLER_HG37_BWAMEM(bwamem_hg37_bams)
     GATK_HAPLOTYPECALLER_HG38_BWAMEM(bwamem_hg38_bams_gatk, exome_bed_ch, exome_bed_tbi_ch)
     // GATK_HAPLOTYPECALLER_T2T_BWAMEM(bwamem_t2t_bams)
+
+    // ========================================
+    // COMPARISON: PIPELINE CALLS vs LABORATORY REFERENCE VCFs (SNP/INDEL)
+    // ========================================
+    // The laboratory reference VCFs live in reference/vcf_hdd/<run>/<sample>.vcf. They are
+    // GRCh37/hg19 and contain SNP/indel calls only, so they are:
+    //   1. matched to the pipeline calls per-sample (by run + sample, stripping the fastq
+    //      lane suffix: e.g. meta.id "001TC_S1_L001" -> reference "001TC_S1.vcf"),
+    //   2. lifted hg19 -> hg38 with CrossMap (CROSSMAP_LIFTOVER), then
+    //   3. compared against the hg38 pipeline SNP/indel calls (DeepVariant, GATK) with
+    //      both hap.py (HAPPY_COMPARE) and bcftools isec (BCFTOOLS_ISEC).
+    // Samples without a matching reference VCF (e.g. empty run folders) are dropped by the
+    // .exists() filter and simply not compared.
+
+    // Strip the Illumina lane suffix (_L001, ...) so meta.id matches the reference basename
+    def strip_lane = { id -> id.replaceAll(/_L0*\d+$/, '') }
+
+    // SNP/indel pipeline calls, keyed by "<run>__<sample>" for matching to the reference
+    dv_snpindel = DEEPVARIANT_HG38_BWAMEM.out.vcf
+        .join(DEEPVARIANT_HG38_BWAMEM.out.tbi)
+        .map { meta, vcf, idx -> ["${meta.run}__${strip_lane(meta.id)}", meta, 'deepvariant', vcf, idx] }
+
+    gatk_snpindel = GATK_HAPLOTYPECALLER_HG38_BWAMEM.out.vcf
+        .join(GATK_HAPLOTYPECALLER_HG38_BWAMEM.out.tbi)
+        .map { meta, vcf, idx -> ["${meta.run}__${strip_lane(meta.id)}", meta, 'gatk', vcf, idx] }
+
+    snpindel_calls = dv_snpindel.mix(gatk_snpindel)
+
+    // One reference VCF per run+sample (deduped; DeepVariant and GATK share the same one),
+    // keeping only those that actually exist on disk.
+    reference_vcfs = snpindel_calls
+        .map { key, meta, caller, vcf, idx ->
+            [key, meta.run, strip_lane(meta.id),
+             file("${projectDir}/reference/vcf_hdd/${meta.run}/${strip_lane(meta.id)}.vcf")]
+        }
+        .filter { key, run, sample, ref_vcf -> ref_vcf.exists() }
+        .unique { it[0] }
+
+    // Lift the reference VCFs hg19 -> hg38
+    CROSSMAP_LIFTOVER(reference_vcfs)
+
+    // Pair each pipeline call with its lifted reference (by run+sample key)
+    comparison_inputs = snpindel_calls
+        .combine(CROSSMAP_LIFTOVER.out.lifted, by: 0)
+        .map { key, meta, caller, vcf, idx, ref_vcf, ref_tbi ->
+            [meta.id, caller, meta.aligner, meta.qc_tool, 'hg38', vcf, idx, ref_vcf, ref_tbi]
+        }
+
+    // Run both comparison methods
+    HAPPY_COMPARE(comparison_inputs)
+    BCFTOOLS_ISEC(comparison_inputs)
 
     // ========================================
     // COMBINE VARIANT CALLERS - COMMENTED OUT
