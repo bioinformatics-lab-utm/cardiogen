@@ -60,8 +60,16 @@ from pathlib import Path
 
 NEXTFLOW_DIR = Path(__file__).resolve().parent.parent
 DEFAULT_ISEC_DIR = NEXTFLOW_DIR / "results" / "06_comparison" / "bcftools_isec"
-DEFAULT_WORK_DIR = NEXTFLOW_DIR / "work"
 DEFAULT_CHAIN = NEXTFLOW_DIR / "reference" / "bed_file" / "hg19ToHg38.over.chain.gz"
+
+# De unde se citesc fisierele CrossMap .unmap (pentru adnotarea artefactelor de
+# liftover). Prima locatie care exista castiga. `unmap_backup` e copia de 2 MB a
+# lui work/**/*.unmap, facuta ca analiza sa nu depinda de work/ (106 GB, nemutat
+# intre sisteme). Vezi docs/HANDOFF_pipeline_only_analysis.md sectiunea 12.
+DEFAULT_UNMAP_DIRS = [
+    NEXTFLOW_DIR / "results" / "06_comparison" / "unmap_backup",
+    NEXTFLOW_DIR / "work",
+]
 
 NON_VARIANT_GT = {"0/0", "0|0", "./.", ".|."}
 HET_GT = {"0/1", "1/0", "0|1", "1|0"}
@@ -83,9 +91,9 @@ def parse_args(argv=None):
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("isec_dir", type=Path, nargs="?", default=DEFAULT_ISEC_DIR,
                    help=f"Directorul .../06_comparison/bcftools_isec (implicit: {DEFAULT_ISEC_DIR})")
-    p.add_argument("--work-dir", type=Path, default=DEFAULT_WORK_DIR,
-                   help="Directorul work/ al Nextflow, de unde se citesc fisierele "
-                        "CrossMap .unmap (implicit: auto)")
+    p.add_argument("--work-dir", type=Path, default=None,
+                   help="Directorul cu fisierele CrossMap .unmap (implicit: auto - "
+                        "cauta results/06_comparison/unmap_backup, apoi work/)")
     p.add_argument("--chain", type=Path, default=DEFAULT_CHAIN,
                    help="Chain hg19->hg38 pentru liftarea pozitiilor din .unmap")
     p.add_argument("--crossmap", default="CrossMap",
@@ -302,13 +310,28 @@ def collect(isec_dir, unmap_hg38, args):
     return rows
 
 
+def resolve_unmap_dir(explicit):
+    """Prima locatie care contine .unmap castiga; explicit --work-dir bate auto."""
+    candidates = [explicit] if explicit else DEFAULT_UNMAP_DIRS
+    for d in candidates:
+        if d and d.is_dir() and next(d.rglob("*.lifted.vcf.unmap"), None):
+            return d
+    return explicit or (DEFAULT_UNMAP_DIRS[0] if DEFAULT_UNMAP_DIRS else None)
+
+
 def main(argv=None):
     args = parse_args(argv)
     if not args.isec_dir.is_dir():
         sys.exit(f"EROARE: directorul nu exista: {args.isec_dir}")
 
-    print(f"Citesc .unmap din {args.work_dir} ...", file=sys.stderr)
-    unmap_records = load_unmap(args.work_dir)
+    unmap_dir = resolve_unmap_dir(args.work_dir)
+    print(f"Citesc .unmap din {unmap_dir} ...", file=sys.stderr)
+    unmap_records = load_unmap(unmap_dir) if unmap_dir else []
+    if not unmap_records:
+        print("  ATENTIE: niciun fisier .unmap gasit. Artefactele de liftover NU vor\n"
+              "  fi marcate - cele ~13 'liftover_ref_swap' vor aparea fals ca 'real'.\n"
+              "  Adu unmap_backup.tar.gz (vezi HANDOFF sectiunea 12) sau da --work-dir.",
+              file=sys.stderr)
     print(f"  {len(unmap_records)} variante de laborator pierdute la liftover",
           file=sys.stderr)
     unmap_hg38 = lift_unmap(unmap_records, args.chain, args.crossmap)
