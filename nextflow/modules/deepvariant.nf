@@ -1,188 +1,9 @@
-// COMMENTED OUT - BOWTIE2 not used for exome analysis
-// process DEEPVARIANT_HG37_BOWTIE2 {
-//     tag "$meta.id - $meta.qc_tool - hg37 - bowtie2"
-//     label 'process_high'
-//
-//     publishDir "${params.outdir}/04_variant_calling/deepvariant/bowtie2/${meta.qc_tool}/hg37", mode: 'copy'
-//
-//     container 'google/deepvariant:1.6.1'
-//
-//     input:
-//     tuple val(meta), path(bam), path(bai)
-//
-//     output:
-//     tuple val(meta), path("*[!g].vcf.gz"),     emit: vcf
-//     tuple val(meta), path("*[!g].vcf.gz.tbi"), emit: tbi
-//     tuple val(meta), path("*.g.vcf.gz"),       emit: gvcf
-//     path "versions.yml",                       emit: versions
-//
-//     when:
-//     task.ext.when == null || task.ext.when
-//
-//     script:
-//     def args = task.ext.args ?: ''
-//     def prefix = "${meta.id}_${meta.qc_tool}_hg37_bowtie2"
-//     def reference = "/reference/hg37/hg19.fa"
-//     """
-//     export TMPDIR=\$(pwd)/tmp && mkdir -p \$TMPDIR
-//
-//     /opt/deepvariant/bin/run_deepvariant \\
-//         --model_type=WGS \\
-//         --ref=${reference} \\
-//         --reads=${bam} \\
-//         --output_vcf=${prefix}.vcf.gz \\
-//         --output_gvcf=${prefix}.g.vcf.gz \\
-//         --num_shards=$task.cpus \\
-//         $args
-//
-//     cat <<-END_VERSIONS > versions.yml
-//     "${task.process}":
-//         deepvariant: \$(echo \$(/opt/deepvariant/bin/run_deepvariant --version 2>&1) | sed 's/^.*DeepVariant version //; s/ .*\$//')
-//     END_VERSIONS
-//     """
-// }
-
-// COMMENTED OUT - BOWTIE2 not used for exome analysis
-// process DEEPVARIANT_HG38_BOWTIE2 {
-//     tag "$meta.id - $meta.qc_tool - hg38 - bowtie2"
-//     label 'process_high'
-//
-//     publishDir "${params.outdir}/04_variant_calling/deepvariant/bowtie2/${meta.qc_tool}/hg38", mode: 'copy'
-//
-//     container 'google/deepvariant:1.6.1'
-//
-//     input:
-//     tuple val(meta), path(bam), path(bai)
-//
-//     output:
-//     tuple val(meta), path("*[!g].vcf.gz"),     emit: vcf
-//     tuple val(meta), path("*[!g].vcf.gz.tbi"), emit: tbi
-//     tuple val(meta), path("*.g.vcf.gz"),       emit: gvcf
-//     path "versions.yml",                       emit: versions
-//
-//     when:
-//     task.ext.when == null || task.ext.when
-//
-//     script:
-//     def args = task.ext.args ?: ''
-//     def prefix = "${meta.id}_${meta.qc_tool}_hg38_bowtie2"
-//     def reference = "/reference/hg38/hg38.fa"
-//     """
-//     export TMPDIR=\$(pwd)/tmp && mkdir -p \$TMPDIR
-//
-//     /opt/deepvariant/bin/run_deepvariant \\
-//         --model_type=WGS \\
-//         --ref=${reference} \\
-//         --reads=${bam} \\
-//         --output_vcf=${prefix}.vcf.gz \\
-//         --output_gvcf=${prefix}.g.vcf.gz \\
-//         --num_shards=$task.cpus \\
-//         $args
-//
-//     cat <<-END_VERSIONS > versions.yml
-//     "${task.process}":
-//         deepvariant: \$(echo \$(/opt/deepvariant/bin/run_deepvariant --version 2>&1) | sed 's/^.*DeepVariant version //; s/ .*\$//')
-//     END_VERSIONS
-//     """
-// }
-
-// COMMENTED OUT - BOWTIE2 not used for exome analysis
-// process DEEPVARIANT_T2T_BOWTIE2 {
-//     tag "$meta.id - $meta.qc_tool - t2t - bowtie2"
-//     label 'process_high'
-//
-//     publishDir "${params.outdir}/04_variant_calling/deepvariant/bowtie2/${meta.qc_tool}/t2t", mode: 'copy'
-//
-//     container 'google/deepvariant:1.6.1'
-//
-//     input:
-//     tuple val(meta), path(bam), path(bai)
-//
-//     output:
-//     tuple val(meta), path("*[!g].vcf.gz"),     emit: vcf
-//     tuple val(meta), path("*[!g].vcf.gz.tbi"), emit: tbi
-//     tuple val(meta), path("*.g.vcf.gz"),       emit: gvcf
-//     path "versions.yml",                       emit: versions
-//
-//     when:
-//     task.ext.when == null || task.ext.when
-//
-//     script:
-//     def args = task.ext.args ?: ''
-//     def prefix = "${meta.id}_${meta.qc_tool}_t2t_bowtie2"
-//     def reference = "/reference/t2t/hs1.fa"
-//     """
-//     export TMPDIR=\$(pwd)/tmp && mkdir -p \$TMPDIR
-//
-//     /opt/deepvariant/bin/run_deepvariant \\
-//         --model_type=WGS \\
-//         --ref=${reference} \\
-//         --reads=${bam} \\
-//         --output_vcf=${prefix}.vcf.gz \\
-//         --output_gvcf=${prefix}.g.vcf.gz \\
-//         --num_shards=$task.cpus \\
-//         $args
-//
-//     cat <<-END_VERSIONS > versions.yml
-//     "${task.process}":
-//         deepvariant: \$(echo \$(/opt/deepvariant/bin/run_deepvariant --version 2>&1) | sed 's/^.*DeepVariant version //; s/ .*\$//')
-//     END_VERSIONS
-//     """
-// }
-
-// COMMENTED OUT - HG37 not needed for exome analysis
-// process DEEPVARIANT_HG37_BWAMEM {
-//     tag "$meta.id - $meta.qc_tool - hg37 - bwamem"
-//     label 'process_high'
-//
-//     publishDir "${params.outdir}/04_variant_calling/deepvariant/bwamem/${meta.qc_tool}/hg37", mode: 'copy'
-//
-//     container 'google/deepvariant:1.6.1'
-//
-//     input:
-//     tuple val(meta), path(bam), path(bai)
-//
-//     output:
-//     tuple val(meta), path("*[!g].vcf.gz"),     emit: vcf
-//     tuple val(meta), path("*[!g].vcf.gz.tbi"), emit: tbi
-//     tuple val(meta), path("*.g.vcf.gz"),       emit: gvcf
-//     path "versions.yml",                       emit: versions
-//
-//     when:
-//     task.ext.when == null || task.ext.when
-//
-//     script:
-//     def args = task.ext.args ?: ''
-//     def prefix = "${meta.id}_${meta.qc_tool}_hg37_bwamem"
-//     def reference = "/reference/hg37/hg19.fa"
-//     def model_type = params.seq_platform ?: 'WGS'
-//     def regions = params.exome_mode && params.exome_bed_hg37 ? "--regions ${params.exome_bed_hg37}" : ''
-//     """
-//
-//     export TMPDIR=\$(pwd)/tmp && mkdir -p \$TMPDIR
-//
-//     /opt/deepvariant/bin/run_deepvariant \\
-//         --model_type=${model_type} \\
-//         --ref=${reference} \\
-//         --reads=${bam} \\
-//         --output_vcf=${prefix}.vcf.gz \\
-//         --output_gvcf=${prefix}.g.vcf.gz \\
-//         --num_shards=$task.cpus \\
-//         ${regions} \\
-//         $args
-//
-//     cat <<-END_VERSIONS > versions.yml
-//     "${task.process}":
-//         deepvariant: \$(echo \$(/opt/deepvariant/bin/run_deepvariant --version 2>&1) | sed 's/^.*DeepVariant version //; s/ .*\$//')
-//     END_VERSIONS
-//     """
-// }
-
 process DEEPVARIANT_HG38_BWAMEM {
     tag "$meta.run - $meta.id - $meta.qc_tool - hg38 - bwamem"
     label 'process_high'
 
-    publishDir "${params.outdir}/05_variant_calling/${meta.run}/deepvariant/bwamem/${meta.qc_tool}/hg38", mode: 'copy'
+    // No publishDir: the raw VCF / gVCF (which contain RefCall/LowQual/NoCall records) stay in
+    // work/ only. The published DeepVariant result is the PASS-only VCF (DV_PASS_FILTER_HG38_BWAMEM).
 
     container 'google/deepvariant:1.6.1'
 
@@ -231,46 +52,42 @@ process DEEPVARIANT_HG38_BWAMEM {
     """
 }
 
-// COMMENTED OUT - T2T not needed for exome analysis
-// process DEEPVARIANT_T2T_BWAMEM {
-//     tag "$meta.id - $meta.qc_tool - t2t - bwamem"
-//     label 'process_high'
-//
-//     publishDir "${params.outdir}/04_variant_calling/deepvariant/bwamem/${meta.qc_tool}/t2t", mode: 'copy'
-//
-//     container 'google/deepvariant:1.6.1'
-//
-//     input:
-//     tuple val(meta), path(bam), path(bai)
-//
-//     output:
-//     tuple val(meta), path("*[!g].vcf.gz"),     emit: vcf
-//     tuple val(meta), path("*[!g].vcf.gz.tbi"), emit: tbi
-//     tuple val(meta), path("*.g.vcf.gz"),       emit: gvcf
-//     path "versions.yml",                       emit: versions
-//
-//     when:
-//     task.ext.when == null || task.ext.when
-//
-//     script:
-//     def args = task.ext.args ?: ''
-//     def prefix = "${meta.id}_${meta.qc_tool}_t2t_bwamem"
-//     def reference = "/reference/t2t/hs1.fa"
-//     """
-//     export TMPDIR=\$(pwd)/tmp && mkdir -p \$TMPDIR
-//
-//     /opt/deepvariant/bin/run_deepvariant \\
-//         --model_type=WGS \\
-//         --ref=${reference} \\
-//         --reads=${bam} \\
-//         --output_vcf=${prefix}.vcf.gz \\
-//         --output_gvcf=${prefix}.g.vcf.gz \\
-//         --num_shards=$task.cpus \\
-//         $args
-//
-//     cat <<-END_VERSIONS > versions.yml
-//     "${task.process}":
-//         deepvariant: \$(echo \$(/opt/deepvariant/bin/run_deepvariant --version 2>&1) | sed 's/^.*DeepVariant version //; s/ .*\$//')
-//     END_VERSIONS
-//     """
-// }
+// Keeps only DeepVariant FILTER=PASS records. Dropped:
+//   RefCall - candidate site genotyped as reference (GT 0/0 or ./.), not a variant
+//   LowQual - variant confidence below the calling threshold
+//   NoCall  - no genotype could be determined (GT ./.)
+// Kept as a separate process so it does not re-run DeepVariant (-resume).
+process DV_PASS_FILTER_HG38_BWAMEM {
+    tag "$meta.run - $meta.id - $meta.qc_tool - hg38 - bwamem"
+    label 'process_low'
+
+    publishDir "${params.outdir}/05_variant_calling/${meta.run}/deepvariant/bwamem/${meta.qc_tool}/hg38", mode: 'copy', pattern: '*.pass.vcf.gz*'
+
+    container 'quay.io/biocontainers/bcftools:1.19--h8b25389_0'
+
+    input:
+    tuple val(meta), path(vcf), path(tbi)
+
+    output:
+    tuple val(meta), path("*.pass.vcf.gz"), path("*.pass.vcf.gz.tbi"), emit: vcf
+    path "versions.yml",                                              emit: versions
+
+    when:
+    task.ext.when == null || task.ext.when
+
+    script:
+    def prefix = "${meta.id}_${meta.qc_tool}_hg38_bwamem"
+    """
+    bcftools view \\
+        --apply-filters PASS \\
+        --output-type z \\
+        --output ${prefix}.pass.vcf.gz \\
+        ${vcf}
+    bcftools index --tbi ${prefix}.pass.vcf.gz
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        bcftools: \$(bcftools --version 2>&1 | head -n1 | sed 's/^bcftools //')
+    END_VERSIONS
+    """
+}
